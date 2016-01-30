@@ -1,0 +1,79 @@
+#include "wall.h"
+#include <iostream>
+
+Wall::Wall(TextureManager& manager, const sf::Vector2f position, const int rotation,
+           const WallType type, const int id, const int otherId )
+:   mWallType       (type)
+,   otherDoor       (nullptr)
+,   mId             (id)
+,   mOtherDoorId    (otherId)
+,   WALL_WIDTH      (1)
+,   WALL_HEIGHT     (40)
+{
+    _mSprite().setPosition( position );
+    _mSprite().setRotation( rotation );
+
+    if(mWallType == WT_DOOR) {// can you make a function in entity class that let's you set the texture rect given the 4 int values?
+        setUpAnimation();
+    }
+
+    setTexture(manager);
+}
+
+/**
+=================================================================================================================================================================
+*   setTexture()    sets the walls texture to one of texture pointers depending on the WallType of said wall (Wall or Door)
+=================================================================================================================================================================
+*/
+void Wall::setTexture(TextureManager& manager)
+{
+    if ( mWallType == WT_DOOR ) {
+       _mSprite().setTexture( manager.getTexture ( RES_TXR_SP_WT_DOOR ) );
+    }
+    else if( mWallType == WT_WALL ) {
+        _mSprite().setTexture( manager.getTexture ( RES_TXR_SP_WT_WALL ) );
+    }
+}
+
+void Wall::logic(const float dt)
+{
+    if(mWallType == WT_DOOR) {
+        _mSprite().setTextureRect(doorOpen.currentFrame(dt));
+    }
+}
+
+void Wall::setOtherDoor(Wall& _wall)
+{
+    if ( _wall.getType() == WT_WALL  ) return;
+    if ( _wall.getId() != mOtherDoorId ) return;
+
+    otherDoor = &_wall;
+}
+
+WallType Wall::getType() const
+{
+    return mWallType;
+}
+
+int Wall::getId() const
+{
+    return mId;
+}
+
+int Wall::getOtherId() const
+{
+    return mOtherDoorId;
+}
+
+/**
+=================================================================================================================================================================
+*   setUpAnimation() adds all needed frames into the "open/ close" animations for the wall
+=================================================================================================================================================================
+*/
+void    Wall::setUpAnimation()
+{
+    for(int i = 0; i < 16; i++)
+    {
+        doorOpen.addFrame( Frame {sf::IntRect(i, 0, WALL_WIDTH, WALL_HEIGHT), 0.02f } );
+    }
+}

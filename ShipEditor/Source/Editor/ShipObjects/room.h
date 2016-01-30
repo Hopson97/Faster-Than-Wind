@@ -1,0 +1,57 @@
+#ifndef ROOM_H
+#define ROOM_H
+
+#include <memory>
+
+#include "../../texturemanager.h"
+#include "../object.h"
+#include "wall.h"
+
+//enum to define types of room
+enum RoomType
+{
+      RT_EMPTY_SMALL
+    , RT_EMPTY_LARGE
+    , RT_EMPTY_SMALL_WIDE
+    , RT_EMPTY_SMALL_TALL
+    , RT_EMPTY_HUGE
+    , RT_CANNON
+};
+
+class Room : public Object
+{
+    public:
+        Room            (   const sf::Texture& t,  const RoomType newRt,        const int xPos,
+                            const int yPos,        const sf::Vector2f& size,    const int rotation);
+
+        void                    draw        (sf::RenderWindow& window); //draw to window
+
+        RoomType                getType     ()   const;
+
+
+        sf::Vector2f            pos         ()       const;
+
+        sf::Vector2f            size        ()      const;
+
+        void                    rotate      ();
+
+
+        void                    setWalls    (std::vector<std::shared_ptr<Wall>>& walls);
+
+        std::vector<std::shared_ptr<Wall>>&                getWalls    ();
+
+
+    private:
+        bool                    isRotatable () const;
+
+    private:
+        int                     xPos, yPos;
+
+        int                     mWidth, mHeight;
+
+        RoomType                mRoomType;
+
+        std::vector<std::shared_ptr<Wall>>    mWalls;
+};
+
+#endif // ROOM_H
