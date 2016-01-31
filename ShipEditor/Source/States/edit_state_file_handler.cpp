@@ -50,11 +50,11 @@ void EditState::save()
 
     for(auto& room : mShip.getRoomMap())
     {
-            file << "r \t"                                 << " r\t";
-            file << room.pos().x                       << "\t";
-            file << room.pos().y                       << "\t";
-            file << room.getSprite().getRotation()     << "\t";
-            file << room.getType()                     << "\n";
+            file << "r \t"                              << " r\t";
+            file << room.pos().x                        << "\t";
+            file << room.pos().y                        << "\t";
+            file << room.getSprite().getRotation()      << "\t";
+            file << room.getType()                      << "\n";
             for(auto& wall : room.getWalls())
             {
                 file << "w"                             << "\t";
@@ -64,6 +64,13 @@ void EditState::save()
                 file << wall->getId ()                  << "\t";
                 file << wall->getOtherId()              << "\t";
                 file << wall->getType()                 << "\n";
+            }
+            for(auto& unit : room.getUnits() )
+            {
+                file << "u"                             << "\t";
+                file << unit->getPos().x  / 40          << "\t";
+                file << unit->getPos().y  / 40          << "\t";
+                file << unit->getType()                 << "\n";
             }
     }
     file.close();
@@ -83,9 +90,8 @@ void EditState::load(const std::string& filePath)
 
 
     while (shipFile >> r) {
-        if (r == "r") {                                                                 //If it reads an "r"
-            std::vector<std::shared_ptr<Wall>> walls;
-            loadRoom(shipFile, rooms, walls);    //It means a room, so said room is loaded.
+        if (r == "r") {
+            loadRoom(shipFile, rooms);    //It means a room, so said room is loaded.
         }
 
     }
@@ -96,8 +102,10 @@ void EditState::load(const std::string& filePath)
     shipFile.close();
 }
 
-void EditState::loadRoom(std::ifstream& shipFile, std::vector<Room>& rooms, std::vector<std::shared_ptr<Wall>>& walls)
+void EditState::loadRoom(std::ifstream& shipFile, std::vector<Room>& rooms)
 {
+    std::vector<std::shared_ptr<Wall>> walls;
+    std::vector<std::shared_ptr<Unit>> units;
     std::string r;
     Room room =  addRoom(shipFile);   //Create a room
     while(true) //aka while finding walls
@@ -105,21 +113,28 @@ void EditState::loadRoom(std::ifstream& shipFile, std::vector<Room>& rooms, std:
         shipFile >> r;
         if(shipFile.eof())  //If end of file, return.
         {
-
+            std::cout << units.size() << std::endl;
             room.setWalls(walls);
+            room.setUnits(units);
             rooms.emplace_back(room);
             return;
         }
         if(r == "r")                //If it's a new room, then finalise the room and push it into the vector
         {
-
+            std::cout << units.size() << std::endl;
             room.setWalls(walls);
+            room.setUnits(units);
             rooms.emplace_back(room);
             return;
         }
         if(r == "w")                //Read the walls
         {
             addWall(walls, shipFile);
+            continue;
+        }
+        if(r == "u")
+        {
+            addUnit(units, shipFile);
             continue;
         }
     }//Room found
@@ -135,7 +150,8 @@ Room EditState::addRoom(std::ifstream& shipFile)
             xPos,
             yPos,
             mShip.getRoomSize(static_cast<RoomType>(type) ),
-            rot
+            rot,
+            true
             };
 }
 
@@ -150,6 +166,19 @@ void EditState::addWall(std::vector<std::shared_ptr<Wall>>& walls, std::ifstream
                                                 (type == 0) ? WT_DOOR : WT_WALL,
                                                 id,
                                                 otherId)
+                                                );
+}
+
+void EditState::addUnit(std::vector<std::shared_ptr<Unit>>& units, std::ifstream& shipFile)
+{
+    int xPos, yPos, type;
+    shipFile >> xPos >> yPos >> type;
+    units.emplace_back(std::make_shared<Unit>  (
+                                                mShip.getUnitTexture(static_cast<UnitType>(type)),
+                                                static_cast<UnitType>(type),
+                                                xPos,
+                                                yPos
+                                                )
                                                 );
 }
 
@@ -193,21 +222,22 @@ void EditState::connectDoors(std::vector<Room>& rooms)
         .ship file layout:
                             file path to ship texture
                             file path to ship texture (for game)
-                            rooms: X position, Y position, Rotation, Type
+                            rooms: X position, Y position, Rotation, Type,
                             walls: X position, Y position, Rotation, The ID of this wall, The ID of the other wall, Type
+                            units: X position, Y position, Type,
 
-        For example:    ../FasterThanWind/Resources/Textures/Ships/Ship.png
+        For example:   ../FasterThanWind/Resources/Textures/Ships/Ship.png
                         Resources/Textures/Ships/Ship.png
-                        r 	 r	0	0	0	0               room
-                        w	0	1	270	1	3	0           wall
-                        w	0	40	270	2	105	0           wall
-                        w	0	-1	0	3	1	0           wall
-                        w	39	0	0	4	0	1           wall
-                        r 	 r	2	0	0	0               room
-                        w	80	1	270	9	0	1           wall
-                        w	80	40	270	10	0	1           wall
-                        w	80	-1	0	11	0	1           wall
-                        w	119	0	0	12	0	1           wall
+                        r 	 r	3	1	0	5
+                        w	120	41	270	1	0	1
+                        w	120	120	270	2	0	1
+                        w	160	41	270	3	0	1
+                        w	160	120	270	4	0	1
+                        w	120	39	0	5	0	1
+                        w	199	40	0	6	0	1
+                        w	120	79	0	7	54	0
+                        w	199	80	0	8	47	0
+                        u	4	2	0
 
 */
 

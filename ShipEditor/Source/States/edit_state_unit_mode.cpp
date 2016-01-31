@@ -19,6 +19,9 @@ void EditState::unitInput()
 
     if ( mShip.roomPresent(mGhost.getRect() ) ) {
         mGhost.updateRectColour(ghCol::GREEN);
+        if ( mShip.unitPresent(mGhost.getRect() ) ) {
+            mGhost.updateRectColour(ghCol::RED);
+        }
 
         if ( sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             mShip.addUnit(mShip.getUnitTexture(mSelectedUnit), mSelectedUnit, mGhost.getRect());

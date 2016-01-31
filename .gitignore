@@ -1,19 +1,17 @@
-
-# Created by https://www.gitignore.io/api/codeblocks
-
 ### CodeBlocks ###
-# specific to CodeBlocks IDE
 *.cbp
 *.layout
 *.depend
 
-# generated directories
 bin/
 obj/
+
+#end of Code::Blocks files
 
 # custom files
 game/
 FTW.txt
 toaddaroom.txt
+updates and that.txt
 
 

@@ -45,10 +45,11 @@ class EditState : public State
 
         void    load                (const std::string& filePath);
 
-        void    loadRoom            (std::ifstream& shipFile, std::vector<Room>& rooms, std::vector<std::shared_ptr<Wall>>& walls);
+        void    loadRoom            (std::ifstream& shipFile, std::vector<Room>& rooms);
 
         Room    addRoom             (std::ifstream& shipFile);
         void    addWall             (std::vector<std::shared_ptr<Wall>>& walls, std::ifstream& shipFile);
+        void    addUnit             (std::vector<std::shared_ptr<Unit>>& units, std::ifstream& shipFile);
 
         void    connectDoors        (std::vector<Room>& rooms);
 

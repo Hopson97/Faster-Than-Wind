@@ -25,6 +25,9 @@ class Room : public Object
         Room            (   const sf::Texture& t,  const RoomType newRt,        const int xPos,
                             const int yPos,        const sf::Vector2f& size,    const int rotation);
 
+        Room            (   const sf::Texture& t,  const RoomType newRt,        const int xPos,
+                            const int yPos,        const sf::Vector2f& size,    const int rotation, bool loaded);
+
         void                    draw        (sf::RenderWindow& window); //draw to window
 
         RoomType                getType     ()   const;
@@ -40,15 +43,18 @@ class Room : public Object
 
 
         void                    setWalls    (std::vector<std::shared_ptr<Wall>>& walls);
+        void                    setUnits    (std::vector<std::shared_ptr<Unit>>& units);
 
         std::vector<std::shared_ptr<Wall>>&  getWalls    ();
         std::vector<std::shared_ptr<Unit>>&  getUnits    ();
 
     private:
         bool                    isRotatable () const;
+         void                   setUp       (const int rotation);
 
     private:
         int                     xPos, yPos;
+
 
         int                     mWidth, mHeight;
 

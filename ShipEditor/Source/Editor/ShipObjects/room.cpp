@@ -14,14 +14,8 @@ Room::Room(const sf::Texture& t, const RoomType newRt,     const int xPos,
 ,   mHeight     (size.y)
 ,   mRoomType   (newRt)
 {
-    for(int i = rotation; i != 0; i -= 90)
-        rotate();
-
-    mSprite.setPosition(xPos * 40 + 1, yPos * 40 + 1);
-
     int w = mWidth  / 40;
     int h = mHeight / 40;
-
     for (int i = 0; i != w; i++){
         mWalls.emplace_back(std::make_shared<Wall>(dirHorizontal, (xPos + i) * 40 , yPos * 40 + 1));          //Create walls for top of room
         mWalls.emplace_back(std::make_shared<Wall>(dirHorizontal, (xPos + i) * 40 , (yPos + h) * 40));      //Create walls for bottom of room
@@ -31,16 +25,41 @@ Room::Room(const sf::Texture& t, const RoomType newRt,     const int xPos,
         mWalls.emplace_back(std::make_shared<Wall>(dirVertical, (xPos + w) * 40 - 1  , (yPos + i) * 40));        //Create walls for right of room
     }
 
+    setUp(rotation);
+}
+
+Room::Room(   const sf::Texture& t,  const RoomType newRt,        const int xPos,
+              const int yPos,        const sf::Vector2f& size,    const int rotation, bool loaded)
+:   Object      (t)
+,   xPos        (xPos)
+,   yPos        (yPos)
+,   mWidth      (size.x)
+,   mHeight     (size.y)
+,   mRoomType   (newRt)
+{
+    setUp(rotation);
+}
+void Room::setUp(const int rotation)
+{
+    for(int i = rotation; i != 0; i -= 90)
+        rotate();
+
+    mSprite.setPosition(xPos * 40 + 1, yPos * 40 + 1);
+
     mSprite.setOrigin(mWidth / 2, mHeight / 2);
     mSprite.move(mWidth / 2, mHeight / 2);
-
 }
+
 
 void Room::draw(sf::RenderWindow& window)
 {
+
     window.draw(mSprite);
-    for(auto& wall : mWalls) wall->draw(window);
-        for (auto& unit: mUnits){
+    for (auto& wall : mWalls) {
+        wall->draw(window);
+    }
+
+    for (auto& unit : mUnits) {
         unit->draw(window);
     }
 }
@@ -92,6 +111,12 @@ void Room::setWalls(std::vector<std::shared_ptr<Wall>>& walls)
     mWalls = walls;
 }
 
+void Room::setUnits(std::vector<std::shared_ptr<Unit>>& units)
+{
+    mUnits = units;
+    std::cout << "untis set " << mUnits.size() << std::endl;
+}
+
 RoomType Room::getType() const
 {
     return mRoomType;
@@ -106,3 +131,4 @@ sf::Vector2f Room::size() const
 {
     return sf::Vector2f(mWidth, mHeight);
 }
+

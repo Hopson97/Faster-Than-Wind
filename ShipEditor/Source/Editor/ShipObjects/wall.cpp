@@ -21,9 +21,9 @@ Wall::Wall(const Direction d, const int xPos, const int yPos)
         mWallRectangle.setRotation(0);                        //Keep it stationary
     }
     genId();
-
 }
 
+//constructor for loading ships
 Wall::Wall(const Direction d,    const int xPos, const int yPos,
            const WallOrDoor wod, const int myId, const int otherId)
     : mId        (myId)
@@ -41,6 +41,7 @@ Wall::Wall(const Direction d,    const int xPos, const int yPos,
         mWallRectangle.setRotation(0);                        //Keep it stationary
     }
     checkType();
+    idCount++;
 }
 
 void Wall::draw(sf::RenderWindow& window)
