@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-#include "States/startstate.h"
+#include "States/start_state.h"
 #include "States/state.h"
 
 class Program

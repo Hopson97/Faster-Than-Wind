@@ -11,6 +11,7 @@ enum TextureName
     ,   RES_TXR_ROOM_MENU
     ,   RES_TXR_BTN_SWITCH_TO_WALL_MODE
     ,   RES_TXR_BTN_SWITCH_TO_ROOM_MODE
+    ,   RES_TXR_BTN_SWITCH_TO_UNIT_MODE
 
     ,   RES_TXR_ROOMS_EMPTY_SM
     ,   RES_TXR_ROOMS_EMPTY_LG
@@ -18,6 +19,8 @@ enum TextureName
     ,   RES_TXR_ROOMS_EMPTY_SM_TL
     ,   RES_TXR_ROOMS_EMPTY_HG
     ,   RES_TXR_ROOMS_CANNON
+
+    ,   RES_TXR_UNITS_RECRUIT
 };
 
 class TextureManager

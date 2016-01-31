@@ -3,10 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace ghCol
+{
+    const sf::Color GREEN(0, 255, 0, 170);
+    const sf::Color RED  (255, 0, 0, 170);
+}
+
 enum mode
 {
     wall,
-    room
+    room,
+    unit
 };
 
 class Ghost

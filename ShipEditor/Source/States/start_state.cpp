@@ -1,4 +1,4 @@
-#include "startstate.h"
+#include "start_state.h"
 
 #include <fstream>
 #include <string>
@@ -45,6 +45,7 @@ newShip() is a method called when the user decides to create a new ship
 void StartState::newShip()
 {
     std::string shipName;
+    std::string oldPath = filePath;
 
     sf::Texture shipTexture;
 
@@ -57,6 +58,7 @@ void StartState::newShip()
         if (!shipTexture.loadFromFile(filePath))
         {
             std::cout << "Texture \""<< filePath << "\" does not exist! Try again." << std::endl << std::endl;
+            filePath = oldPath;
             continue;
         }
         else if(shipTexture.loadFromFile(filePath))

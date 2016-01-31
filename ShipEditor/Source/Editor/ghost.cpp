@@ -10,7 +10,7 @@ aka the "ghost" that shows where rooms will be placed
 Ghost::Ghost()
 : mMode (room)
 {
-    mGhostRect.setFillColor(sf::Color(0, 255, 0, 200));    //Set the ghost to be slightly transparent
+    mGhostRect.setFillColor(ghCol::RED);    //Set the ghost to be slightly transparent
     mGhostRect.setSize(sf::Vector2f(40, 40));
 }
 
@@ -23,8 +23,6 @@ void Ghost::logic(const sf::Vector2i mousePos, const int maxWidth, const int max
 {
     xPos = mGhostRect.getPosition().x / 40;    //Set a variable for y position that is relative to the "tile map" (1px = 40px)
     yPos = mGhostRect.getPosition().y / 40;    //Set a variable that x position  is relative to the "tile map" (1px = 40px)
-
-
 
     goToMouse(mousePos, maxWidth, maxHeight, window);   //Sets the sprites position to the mouse position (if possible)
     isOutOfBounds(maxWidth, maxHeight);    //Checks if the ghost somehow got out of bounds :/
@@ -68,6 +66,9 @@ void Ghost::setMode(mode m)
     mMode = m;
     if (mMode == room) {
         mGhostRect.setRotation(0);
+    }
+    else if (mMode == unit) {
+        mGhostRect.setSize(sf::Vector2f(40, 40) );
     }
 }
 

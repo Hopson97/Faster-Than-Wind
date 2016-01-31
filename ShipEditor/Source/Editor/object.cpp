@@ -40,7 +40,12 @@ sf::Sprite Object::getSprite() const
     return mSprite;
 }
 
-void Object::setColour(const sf::Color c)
+void Object::setColour(const sf::Color& c)
 {
     mSprite.setColor(c);
+}
+
+void Object::setTextureRect(const sf::IntRect& rect)
+{
+    mSprite.setTextureRect(rect);
 }

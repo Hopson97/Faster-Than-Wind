@@ -24,12 +24,14 @@ CurrentlySelected::CurrentlySelected(const sf::Texture& t, const TextureManager&
 
     selectedText.setColor(sf::Color(255, 178, 102));            //Set it's colour
 
-    textMap[RT_EMPTY_SMALL]   = "Empty Small";    //Register some textures to a map
-    textMap[RT_EMPTY_LARGE]   = "Empty Large";
-    textMap[RT_EMPTY_SMALL_WIDE]  = "Empty Small Wide";
-    textMap[RT_EMPTY_SMALL_TALL]  = "Empty Small Tall";
-    textMap[RT_EMPTY_HUGE]    = "Empty Huge";
-    textMap[RT_CANNON]     = "Cannon";
+    roomTextMap[RT_EMPTY_SMALL]         = "Empty Small";    //Register some textures to a map
+    roomTextMap[RT_EMPTY_LARGE]         = "Empty Large";
+    roomTextMap[RT_EMPTY_SMALL_WIDE]    = "Empty Small Wide";
+    roomTextMap[RT_EMPTY_SMALL_TALL]    = "Empty Small Tall";
+    roomTextMap[RT_EMPTY_HUGE]          = "Empty Huge";
+    roomTextMap[RT_CANNON]              = "Cannon";
+
+    unitTextMap[UT_RECRUIT]             = "Recruit";
 }
 
 /*
@@ -51,11 +53,17 @@ updateSelected() updates what texture is shown in the "currently selected" box.
 */
 bool CurrentlySelected::updateSelected(const RoomType room, const sf::Texture& texture)
 {
-    selectedText.setString (textMap[room]);     //Change the selected text
+    selectedText.setString (roomTextMap[room]);     //Change the selected text
     setTexture(texture);                        //Change the selected texture
     return true;
 }
 
+bool CurrentlySelected::updateSelected(const UnitType unit, const sf::Texture& texture)
+{
+    selectedText.setString (unitTextMap[unit]);     //Change the selected text
+    setTexture(texture);                        //Change the selected texture
+    return true;
+}
 
 /*
 =================================================================================================================================================================

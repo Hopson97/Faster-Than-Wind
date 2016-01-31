@@ -56,7 +56,7 @@ bool DotMap::dotInShipBounds(const sf::Sprite& mShip, const sf::Vector2f& point)
         {
             return true;                                    //Woo, it is within bounds
         }
-    else return false;       //Else, return false
+    else return false;
 }
 
 /*

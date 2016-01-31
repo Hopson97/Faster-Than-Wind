@@ -4,6 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+namespace wallConst
+{
+    const sf::Color WALL(255, 178, 102);
+    const sf::Color DOOR(188,  76,  47);
+
+    const sf::Vector2f SIZE(1, 40);
+}
+
 enum Direction
 {
     dirHorizontal,

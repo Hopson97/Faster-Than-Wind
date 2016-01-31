@@ -1,7 +1,7 @@
 #ifndef STARTSTATE_H
 #define STARTSTATE_H
 
-#include "editstate.h"
+#include "edit_state.h"
 #include "state.h"
 
 class StartState : public State

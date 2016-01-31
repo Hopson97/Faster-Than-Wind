@@ -1,4 +1,4 @@
-#include "editstate.h"
+#include "edit_state.h"
 
 #include <string>
 #include <sstream>
@@ -18,11 +18,12 @@ EditState::EditState(Program* p, const std::string& filePath, const std::string&
     mShipWidth              (mDotMap.getDotMapDimensions().x),
     mShip                   (mTextures, mShipWidth, mShipHeight, filePath),
     mCurrentlySelectedUI    (mTextures.getTexture(RES_TXR_CURRENTLY_SELECTED), mTextures),
-    mRoomMenuUI             (mTextures.getTexture(RES_TXR_ROOM_MENU), mTextures),
+    mObjectMenuUI             (mTextures.getTexture(RES_TXR_ROOM_MENU), mTextures),
     mSelectedRoom           (RT_EMPTY_SMALL),
-    mMode                   (modeRoom),
+    mMode                   (MODE_ROOM),
     mSwToWallMdeBtn         (mTextures.getTexture(RES_TXR_BTN_SWITCH_TO_WALL_MODE), sf::Vector2f(750, 0)),
     mSwToRoomMdeBtn         (mTextures.getTexture(RES_TXR_BTN_SWITCH_TO_ROOM_MODE  ), sf::Vector2f(750, 60)),
+    mSwToUnitMdeBtn         (mTextures.getTexture(RES_TXR_BTN_SWITCH_TO_UNIT_MODE  ),    sf::Vector2f(750, 120)),
     mShipName               (shipName)
 {
     selectionHasChanged = false;
@@ -106,14 +107,14 @@ void EditState::loadRoom(std::ifstream& shipFile, std::vector<Room>& rooms, std:
         {
 
             room.setWalls(walls);
-            rooms.push_back(room);
+            rooms.emplace_back(room);
             return;
         }
         if(r == "r")                //If it's a new room, then finalise the room and push it into the vector
         {
 
             room.setWalls(walls);
-            rooms.push_back(room);
+            rooms.emplace_back(room);
             return;
         }
         if(r == "w")                //Read the walls
@@ -128,15 +129,14 @@ Room EditState::addRoom(std::ifstream& shipFile)
 {
     int xPos, yPos, rot, type;
     shipFile >> xPos >> yPos >> rot >> type;
-    if ( type == 0 ) std::cout << "i am door lol" << std::endl;
-    return Room(
-                mShip.getRoomTexture(static_cast<RoomType>(type)),
-                static_cast<RoomType>(type),
-                xPos,
-                yPos,
-                mShip.getRoomSize(static_cast<RoomType>(type) ),
-                rot
-                );
+    return {
+            mShip.getRoomTexture(static_cast<RoomType>(type)),
+            static_cast<RoomType>(type),
+            xPos,
+            yPos,
+            mShip.getRoomSize(static_cast<RoomType>(type) ),
+            rot
+            };
 }
 
 void EditState::addWall(std::vector<std::shared_ptr<Wall>>& walls, std::ifstream& shipFile)
@@ -165,7 +165,7 @@ void EditState::connectDoors(std::vector<Room>& rooms)
         {
             if(wall->getOtherId() != 0)
             {
-                wallInfo.push_back(wall);
+                wallInfo.emplace_back(wall);
             }
         }
     }

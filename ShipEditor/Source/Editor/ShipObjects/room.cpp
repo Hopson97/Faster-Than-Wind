@@ -40,6 +40,14 @@ void Room::draw(sf::RenderWindow& window)
 {
     window.draw(mSprite);
     for(auto& wall : mWalls) wall->draw(window);
+        for (auto& unit: mUnits){
+        unit->draw(window);
+    }
+}
+
+void Room::addUnit(std::shared_ptr<Unit> _unit)
+{
+    mUnits.emplace_back(_unit);
 }
 
 void Room::rotate()
@@ -72,6 +80,11 @@ bool Room::isRotatable() const
 std::vector<std::shared_ptr<Wall>>& Room::getWalls()
 {
     return mWalls;
+}
+
+std::vector<std::shared_ptr<Unit>>& Room::getUnits ()
+{
+    return mUnits;
 }
 
 void Room::setWalls(std::vector<std::shared_ptr<Wall>>& walls)

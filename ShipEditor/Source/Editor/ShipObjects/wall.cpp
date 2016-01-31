@@ -10,8 +10,8 @@ Wall::Wall(const Direction d, const int xPos, const int yPos)
 
 {
     otherWall = nullptr;
-    mWallRectangle.setSize        (sf::Vector2f(1, 40));      //Set the wall's rectangle to be exactly 1x40pixel aka 1 tile length
-    mWallRectangle.setFillColor   (sf::Color(255, 178, 102)); //Set the wall's rectangle's colour
+    mWallRectangle.setSize        (wallConst::SIZE);      //Set the wall's rectangle to be exactly 1x40pixel aka 1 tile length
+    mWallRectangle.setFillColor   (wallConst::WALL); //Set the wall's rectangle's colour
     mWallRectangle.setPosition    (xPos, yPos);               //Set the wall's rectangle position
 
     if (d == dirHorizontal) {                       //If it needs to be horizontal
@@ -30,8 +30,8 @@ Wall::Wall(const Direction d,    const int xPos, const int yPos,
     , otherId   (otherId)
     , mType     (wod)
 {
-    mWallRectangle.setSize        (sf::Vector2f(1, 40));      //Set the wall's rectangle to be exactly 1x40pixel aka 1 tile length
-    mWallRectangle.setFillColor   (sf::Color(255, 178, 102)); //Set the wall's rectangle's colour
+    mWallRectangle.setSize        (wallConst::SIZE);      //Set the wall's rectangle to be exactly 1x40pixel aka 1 tile length
+    mWallRectangle.setFillColor   (wallConst::WALL); //Set the wall's rectangle's colour
     mWallRectangle.setPosition    (xPos, yPos);               //Set the wall's rectangle position
 
     if (d == dirHorizontal) {                       //If it needs to be horizontal
@@ -72,10 +72,10 @@ Wall& Wall::getOtherWall()
 void Wall::checkType()
 {
     if (mType == WT_WALL) {
-        mWallRectangle.setFillColor(sf::Color(255, 178, 102));
+        mWallRectangle.setFillColor   (wallConst::WALL);
     }
     else if (mType == WT_DOOR) {
-        mWallRectangle.setFillColor(sf::Color(188, 76, 47));
+        mWallRectangle.setFillColor     (wallConst::DOOR);
     }
 }
 

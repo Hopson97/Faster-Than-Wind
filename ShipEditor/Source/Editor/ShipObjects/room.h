@@ -6,6 +6,7 @@
 #include "../../texturemanager.h"
 #include "../object.h"
 #include "wall.h"
+#include "unit.h"
 
 //enum to define types of room
 enum RoomType
@@ -35,11 +36,13 @@ class Room : public Object
 
         void                    rotate      ();
 
+        void                    addUnit     (std::shared_ptr<Unit> _unit);
+
 
         void                    setWalls    (std::vector<std::shared_ptr<Wall>>& walls);
 
-        std::vector<std::shared_ptr<Wall>>&                getWalls    ();
-
+        std::vector<std::shared_ptr<Wall>>&  getWalls    ();
+        std::vector<std::shared_ptr<Unit>>&  getUnits    ();
 
     private:
         bool                    isRotatable () const;
@@ -51,7 +54,8 @@ class Room : public Object
 
         RoomType                mRoomType;
 
-        std::vector<std::shared_ptr<Wall>>    mWalls;
+        std::vector<std::shared_ptr<Wall>>      mWalls;
+        std::vector<std::shared_ptr<Unit>>      mUnits;
 };
 
 #endif // ROOM_H
