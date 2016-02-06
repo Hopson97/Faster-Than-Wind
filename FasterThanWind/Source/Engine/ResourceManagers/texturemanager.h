@@ -33,6 +33,8 @@ enum TextureName
     ,   RES_TXR_SP_WT_WALL                  //Texture, for ship, of wall type: wall
     ,   RES_TXR_SP_WT_DOOR                  //Texture, for ship, of wall type: door
 
+    ,   RES_TXR_SP_UT_RECRUIT               //Texture, for the ship, of a unit of type: Recruit
+
 };
 
 class TextureManager
@@ -41,11 +43,14 @@ class TextureManager
                                 TextureManager      ();
 
         void                    clearTextures       ();
+        void                    loadTexturesAll     ();
+        void                    loadTexturesGbl     ();
         void                    loadTexturesSS      (); //Splash screen textures
         void                    loadTexturesMenu    ();
         void                    loadTexturesNewGame ();
 
         void                    loadTexturesRooms   ();
+        void                    loadTexturesUnits   ();
 
         sf::Texture&            getTexture          (const TextureName textureName);
 

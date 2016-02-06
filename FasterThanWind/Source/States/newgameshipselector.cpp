@@ -7,6 +7,8 @@
 #include "constants.h"
 #include "toStr.h"
 
+#include "play_stationary.h"
+
 namespace state {
 
 NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
@@ -21,6 +23,7 @@ NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
 ,   mLayout1Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 570,    LIST_BUTTON_Y      ), "Layout 1" )
 ,   mLayout2Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 380,    LIST_BUTTON_Y      ), "Layout 2" )
 ,   mLayout3Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 190,    LIST_BUTTON_Y      ), "Layout 3" )
+,   mConfirmSelectionButton ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 190,    win::HEIGHT - 100  ), "Select Ship")
 ,   mBackToMainMenuButton   ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( 0, 0                                    ), "\t  Back to \n Main Menu" )
 ,   mCurrentLayout          ( 1, 3, 1) //Ranged num, 1 - 3, starting value = 1
 {
@@ -38,7 +41,8 @@ NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
 
 
     mCurrentShip.setPosition(sf::Vector2f((win::WIDTH  / 2) - ship::WIDTH,
-                             (win::HEIGHT / 2) - 50));
+                             (win::HEIGHT / 2) - 50),
+                             false);
     resetShip();
 }
 
@@ -68,6 +72,9 @@ void NewGameShipSelector::input (const float dt)
     if ( mLayout3Button.clicked ( _mGame().window() ) ) {
         mCurrentLayout.setValue( 3 );
         resetShip();
+    }
+    if ( mConfirmSelectionButton.clicked( _mGame().window() ) ) {
+        _mGame().getStates(false).changeState(std::make_shared<Play_Stationary>( &_mGame(), mCurrentShip));
     }
     if ( mBackToMainMenuButton.clicked( _mGame().window() ) ) {
         _mGame().getStates(false).popState();
@@ -161,9 +168,12 @@ void NewGameShipSelector::setUpButtons()
     mLayout2Button.setTextSize  ( LAYOUT_BTN_TEXT_SIZE );
     mLayout3Button.setTextSize  ( LAYOUT_BTN_TEXT_SIZE );
 
+    mConfirmSelectionButton.setTextSize     ( LAYOUT_BTN_TEXT_SIZE );
+    mConfirmSelectionButton.moveText        ( sf::Vector2f(-10, 10 ) );
 
-    mBackToMainMenuButton.setTextSize( 23 );
-    mBackToMainMenuButton.moveText( sf::Vector2f(-10, 35 ) );
+
+    mBackToMainMenuButton.setTextSize   ( 23 );
+    mBackToMainMenuButton.moveText      ( sf::Vector2f(-10, 35 ) );
 }
 
 /**
@@ -193,6 +203,8 @@ void NewGameShipSelector::addEntitysToVector()
     mEntities.push_back( &mLayout1Button  );   //Add layout buttons to the entity list
     mEntities.push_back( &mLayout2Button  );
     mEntities.push_back( &mLayout3Button  );
+
+    mEntities.push_back( &mConfirmSelectionButton);
 
     mEntities.push_back( &mBackToMainMenuButton );
 }

@@ -44,6 +44,13 @@ Entity::Entity()
 
 }
 
+/**
+=================================================================================================================================================================
+*   setUpText() if the entity should have some text to show, this this the place where it is set up, and tries to estimate where the text should be
+*   param1  :   The text to be displayed on the button
+*   param2  :   The position of the text
+=================================================================================================================================================================
+*/
 void Entity::setUpText(const std::string& text, const sf::Vector2f& pos)
 {
     mFont.loadFromFile    ( "Resources/Fonts/MTCORSVA.ttf"      );
@@ -52,20 +59,26 @@ void Entity::setUpText(const std::string& text, const sf::Vector2f& pos)
     mText.setCharacterSize( 60                                  );
     mText.setColor        ( col::TEXT_COLOUR                    );
 
-    sf::FloatRect buttonRect = mText.getLocalBounds();
-    mText.setOrigin( sf::Vector2f( buttonRect.width  / 2,
-                                         buttonRect.height / 2 ) );
+    sf::FloatRect textRect = mText.getLocalBounds();
+    mText.setOrigin( sf::Vector2f(  textRect.width  / 2,
+                                    textRect.height / 2 ) );
+
     sf::FloatRect spriteRect = _mSprite().getLocalBounds();
 
     sf::Vector2f spriteCenteredOrigin(  spriteRect.width  / 2,
                                         spriteRect.height / 2 );
 
 
-    mText.setPosition     (  pos.x + spriteCenteredOrigin.x / 2 + buttonRect.width / 2 ,
+    mText.setPosition     (  pos.x + spriteCenteredOrigin.x / 2 + textRect.width / 2 ,
                              pos.y + spriteCenteredOrigin.y / 2 ) ;
 }
 
-sf::Color Entity::sineColour()
+/**
+=================================================================================================================================================================
+*   newColour() based on certain variables, it sets the sprite to a different colour
+=================================================================================================================================================================
+*/
+sf::Color Entity::newColour()
 {
     int r = mSprite.getColor().r;
     int g = mSprite.getColor().g;
@@ -174,23 +187,28 @@ void Entity::setTextureRect(const sf::IntRect& rect)
     mSprite.setTextureRect(rect);
 }
 
+/**
+=================================================================================================================================================================
+*   setTextSize ()  sets the size of the text (if there is any)
+*   param1  :   the size of the text
+=================================================================================================================================================================
+*/
 void Entity::setTextSize        ( const int cSize               )
 {
     mText.setCharacterSize(cSize);
-     mText.move (0, mText.getCharacterSize() - 10 );
+    mText.move (0, mText.getCharacterSize() - 10 );
 }
 
-void Entity::moveText           ( const sf::Vector2f& offset    )   { mText.move(offset);               }
+void Entity::moveText           ( const sf::Vector2f& offset    )   { mText.move(offset);               }   //moves the text
 
+void Entity::setPos             ( const sf::Vector2f& pos       )   { mSprite.setPosition(pos);         }   //Sets the position of the sprite
 
-void Entity::setPos             ( const sf::Vector2f& pos       )   { mSprite.setPosition(pos);         }
+void Entity::setRot             ( const int rot                 )   { mSprite.setRotation(rot);         }   //Sets the rotation of the sprite
 
-void Entity::setRot             ( const int rot                 )   { mSprite.setRotation(rot);         }
+void Entity::setColour          ( const sf::Color& c            )   { mSprite.setColor(c);              }   //Sets the colour of the sprite
 
-void Entity::setColour          ( const sf::Color& c            )   { mSprite.setColor(c);              }
+void Entity::setOrigin          ( const sf::Vector2f& org       )   { mSprite.setOrigin(org);           }   //Sets the origin of the sprite
 
-void Entity::setOrigin          ( const sf::Vector2f& org       )   { mSprite.setOrigin(org);           }
+sf::Vector2f Entity::getPos     () const                            { return mSprite.getPosition();     }   //Returns position of the sprite
 
-sf::Vector2f Entity::getPos     () const                            { return mSprite.getPosition();     }
-
-sf::Sprite Entity::getSprite    () const                            { return mSprite;                   }
+sf::Sprite Entity::getSprite    () const                            { return mSprite;                   }   //Returns the sprite itself

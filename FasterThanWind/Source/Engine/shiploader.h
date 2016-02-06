@@ -4,7 +4,8 @@
 #include <vector>
 
 #include "room.h"
-#include "ship.h"
+#include "Unit/unit.h"
+#include "../Objects/Ship/ship.h"
 
 class ShipLoader
 {
@@ -14,14 +15,16 @@ class ShipLoader
 
     private:
         void    loadRoom    (std::ifstream& loader, TextureManager& textureManager);
-        Room    addRoom     (std::ifstream& loader);
+        void    addRoom     (std::ifstream& loader);
         Wall    addWall     (std::ifstream& loader, TextureManager& textureManager);
+        void    addUnit     (std::ifstream& loader);
 
         void    matchUpDoors    ();
 
 
     private:
         std::vector<Room> mRooms;
+        std::vector<Unit> mUnits;
         Ship* mShip;
 };
 

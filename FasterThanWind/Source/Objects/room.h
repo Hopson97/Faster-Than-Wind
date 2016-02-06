@@ -27,6 +27,8 @@ class Room : public Entity
         void                logic       (const float dt);
         void                draw        (sf::RenderWindow& window) override;
 
+        void                setToShipPos (const sf::Vector2f& shipPosition);
+
         std::vector<Wall>&  getWalls    ();
 
     private:

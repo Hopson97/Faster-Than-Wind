@@ -9,7 +9,7 @@
 =================================================================================================================================================================
 */
 
-void    Animation::addFrame(Frame frame)
+void    Animation::addFrame(const Frame& frame)
 {
     mFrames.push_back(frame);
 }

@@ -74,4 +74,4 @@ void MainMenu::draw(const float dt)
     mLogo           .draw( _mGame().window() );
 }
 
-} //namespace state
+} //name space state

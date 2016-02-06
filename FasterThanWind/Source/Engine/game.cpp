@@ -13,7 +13,7 @@
 Game::Game()
 : mWindow(sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close, sf::ContextSettings(8)) //Window Constructor
 {
-    mWindow.setPosition(sf::Vector2i(-1300, 0) );
+    mWindow.setPosition(sf::Vector2i(-1700, 0) );
     mWindow.setFramerateLimit(win::FRAME_RATE_LIMIT);
 
     quickload();
@@ -22,10 +22,7 @@ Game::Game()
 
 void Game::quickload()
 {
-    mTextures.loadTexturesSS();
-    mTextures.loadTexturesMenu();
-    mTextures.loadTexturesRooms();
-    mTextures.loadTexturesNewGame();
+    mTextures.loadTexturesAll();
     mStates.changeState(std::make_shared<state::MainMenu>( this ) );
 }
 

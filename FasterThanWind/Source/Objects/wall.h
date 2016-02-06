@@ -16,10 +16,11 @@ class Wall : public Entity
 {
     public:
         Wall(   TextureManager& manager, const sf::Vector2f position, const int rotation,
-                const WallType type, const int id, const int otherId );
+                const WallType type, const int id, const int otherId, const sf::Vector2f& shipPosition );
 
         void        logic           (const float dt);
         void        setOtherDoor    (Wall& _wall);
+        void        setToShipPos     (const sf::Vector2f& shipPosition);
         WallType    getType         () const;
         int         getId           () const;
         int         getOtherId      () const;
@@ -38,6 +39,8 @@ class Wall : public Entity
 
         int       WALL_WIDTH;
         int       WALL_HEIGHT;
+
+        int xPos, yPos;
 
         Animation doorOpen;
 };

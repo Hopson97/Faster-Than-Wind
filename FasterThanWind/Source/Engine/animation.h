@@ -13,7 +13,7 @@ struct Frame
 class Animation
 {
     public:
-        void            addFrame        (Frame frame);
+        void            addFrame        (const Frame& frame);
         sf::IntRect     currentFrame    (const float dt); //, sf::Sprite& sprite);
 
         unsigned int    getCurrentFrameNumber() const;

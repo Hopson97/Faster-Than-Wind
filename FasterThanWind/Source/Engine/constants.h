@@ -25,6 +25,8 @@ namespace ship
     constexpr int TILE_SIZE     =   40;
     constexpr int WIDTH         =   600;
     constexpr int HEIGHT        =   320;
+
+    const sf::IntRect UNIT_SIZE    (0, 0, 38, 38 );
 }
 
 

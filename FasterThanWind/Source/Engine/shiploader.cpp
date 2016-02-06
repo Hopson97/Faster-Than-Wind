@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "ResourceManagers/texturemanager.h"
+#include "constants.h"
 
 ShipLoader::ShipLoader()
 {
@@ -39,6 +40,7 @@ void ShipLoader::loadShip(Ship* ship, const std::string& shipPath, TextureManage
     }
     matchUpDoors();
     mShip->setRooms( std::move ( mRooms ) );
+    mShip->setUnits( std::move ( mUnits ) );
     loader.close();
 }
 
@@ -52,7 +54,7 @@ void ShipLoader::loadShip(Ship* ship, const std::string& shipPath, TextureManage
 void ShipLoader::loadRoom(std::ifstream& loader, TextureManager& textureManager)
 {
     std::string reader;
-    mRooms.push_back( addRoom( loader ) );  //Add a room into the ships room vector
+    addRoom( loader );  //Add a room into the ships room vector
     while(true)
     {
         loader >> reader;                   //Read next char
@@ -62,9 +64,13 @@ void ShipLoader::loadRoom(std::ifstream& loader, TextureManager& textureManager)
         else if ( reader == "r") {      //If the next line is an "r"
             return;                     //Then a new room is ready to be loaded, so return back!
         }
-        else if( reader == "w" ) {      //If the next line is a "w"
+        else if ( reader == "w" ) {      //If the next line is a "w"
             mRooms.back().              //A wall is ready to be loaded, so add a wall to last room added
                     addWall( addWall (loader, textureManager ) ); //
+            continue;
+        }
+        else if ( reader == "u" ) {
+            addUnit(loader);
             continue;
         }
     }
@@ -75,17 +81,18 @@ void ShipLoader::loadRoom(std::ifstream& loader, TextureManager& textureManager)
 *   addRoom()   Read in the room's data and then return a room that uses said data
 =================================================================================================================================================================
 */
-Room ShipLoader::addRoom(std::ifstream& loader)
+void ShipLoader::addRoom(std::ifstream& loader)
 {
     int xPos, yPos, rot, type;
     loader >> xPos >> yPos >> rot >> type;
-    return Room(
-                sf::Vector2f(xPos, yPos),
-                static_cast<RoomType>(type),
-                *mShip->getTexture(static_cast<RoomType>(type)),
-                rot,
-                mShip->getPosition()
-                );
+    mRooms.emplace_back( Room(
+                                sf::Vector2f(xPos, yPos),
+                                static_cast<RoomType>(type),
+                                *mShip->getTexture(static_cast<RoomType>(type)),
+                                rot,
+                                mShip->getPosition()
+                                )
+                                );
 }
 
 /**
@@ -99,13 +106,30 @@ Wall ShipLoader::addWall(std::ifstream& loader, TextureManager& textureManager)
     loader >> xPos >> yPos >> rot >> id >> otherId >> type;
     return Wall(
                 textureManager,
-                sf::Vector2f(xPos + mShip->getPosition().x,
-                             yPos + mShip->getPosition().y),
+                sf::Vector2f(xPos,
+                             yPos),
                 rot,
                 static_cast<WallType>(type),
                 id,
-                otherId
+                otherId,
+                mShip->getPosition()
                 );//
+}
+
+void ShipLoader::addUnit(std::ifstream& loader)
+{
+    int xPos, yPos, type;
+    loader >> xPos >> yPos >> type;
+    mUnits.emplace_back(Unit(
+                            *mShip->getTexture(static_cast<UnitType>(type)),
+                            static_cast<UnitType>(type),
+                            sf::Vector2f (
+                                xPos,
+                                yPos
+                                ),
+                            mShip->getPosition()
+                            )
+                            );
 }
 
 void ShipLoader::matchUpDoors()

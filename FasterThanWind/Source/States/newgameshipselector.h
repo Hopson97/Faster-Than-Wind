@@ -1,8 +1,9 @@
 #ifndef NEWGAMESHIPSELECTOR_H
 #define NEWGAMESHIPSELECTOR_H
 
-#include "ship.h"
+#include "../Objects/Ship/ship.h"
 #include "state.h"
+
 #include "game.h"
 #include "shiploader.h"
 #include "rangednum.h"
@@ -49,6 +50,8 @@ class NewGameShipSelector : public State
         ui::Button                  mLayout1Button;
         ui::Button                  mLayout2Button;
         ui::Button                  mLayout3Button;
+
+        ui::Button                  mConfirmSelectionButton;
 
         ui::Button                  mBackToMainMenuButton;
 

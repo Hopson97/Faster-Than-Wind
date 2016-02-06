@@ -5,12 +5,6 @@
 TextureManager::TextureManager()
 :   texturePath ("Resources/Textures/")
 {
-
-    loadTexture(RES_TXR_GBL_LONG_SCROLL,    texturePath + "Menu Buttons/scroll.png");
-    loadTexture(RES_TXR_GBL_SMALL_SCROLL,    texturePath + "Menu Buttons/smallscroll.png");
-    //loadTexturesSS();
-    //loadTexturesMenu();
-    //loadTexturesRooms();
 }
 
 /**
@@ -32,6 +26,22 @@ sf::Texture& TextureManager::getTexture(const TextureName textureName)
 void TextureManager::clearTextures()
 {
     mTextures.clear();
+}
+
+void TextureManager::loadTexturesAll()
+{
+    loadTexturesGbl();
+    loadTexturesSS();
+    loadTexturesMenu();
+    loadTexturesNewGame();
+    loadTexturesRooms();
+    loadTexturesUnits();
+}
+
+void TextureManager::loadTexturesGbl()
+{
+    loadTexture(RES_TXR_GBL_LONG_SCROLL,    texturePath + "Menu Buttons/scroll.png");
+    loadTexture(RES_TXR_GBL_SMALL_SCROLL,    texturePath + "Menu Buttons/smallscroll.png");
 }
 
 /**
@@ -72,6 +82,11 @@ void TextureManager::loadTexturesRooms()
 
     loadTexture( RES_TXR_SP_WT_DOOR             ,   texturePath + "Walls/Door.png"                  );
     loadTexture( RES_TXR_SP_WT_WALL             ,   texturePath + "Walls/Wall.png"                  );
+}
+
+void TextureManager::loadTexturesUnits()
+{
+    loadTexture(RES_TXR_SP_UT_RECRUIT           ,   texturePath + "Units/Recruit.png"               );
 }
 
 /**

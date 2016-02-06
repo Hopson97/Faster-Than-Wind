@@ -38,7 +38,7 @@ class Entity
     private:
         sf::Sprite              mSprite;
 
-        sf::Color               sineColour      ();
+        sf::Color               newColour      ();
         void                    changeColour    (int& colour, bool& isAdding);
 
 
