@@ -7,6 +7,8 @@
 #include "state.h"
 #include "game.h"
 
+#include "entity.h"
+
 namespace state
 {
 
@@ -34,7 +36,7 @@ class SplashScreen : public State
 
 
         sf::Texture                 logoTexture;
-        sf::RectangleShape          logoSprite;
+        Entity                      logoSprite;
 
 
         sf::RectangleShape          blackness;

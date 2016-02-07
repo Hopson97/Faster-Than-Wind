@@ -30,7 +30,7 @@ void Unit::setLevels()
 
 }
 
-std::string Unit::typeToString() const
+const std::string Unit::typeToString() const
 {
     switch ( mUnitType )
     {

@@ -20,11 +20,17 @@ class MainMenu : public State
         void        draw        (const float dt);
 
     private:
+        void        fadeIn      ();
+
+    private:
         Entity      mBackground;
         Entity      mLogo;
 
         ui::Button  mNewGameButton;
         ui::Button  mContinueButton;
+
+        sf::RectangleShape blackFade;
+        bool    blackFading;
 
         sf::Sound   click;
 };

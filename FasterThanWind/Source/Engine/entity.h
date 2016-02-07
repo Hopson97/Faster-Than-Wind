@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "ResourceManagers/texturemanager.h"
+#include "spritedancer.h"
 
 class Entity
 {
@@ -20,16 +21,18 @@ class Entity
                 void            setOrigin       (  const sf::Vector2f& org  );
                 void            setToRandColour ();
 
-                sf::Vector2f    getPos          () const;
-                sf::Sprite      getSprite       () const;
-
-                void            dance           (const float& dt);
+        const   sf::Vector2f    getPos          () const;
+        const   sf::Sprite      getSprite       () const;
 
                 void            centerOrigin    (const sf::Vector2f& newPos);
 
                 void            setUpText       (const std::string& text, const sf::Vector2f& pos);
                 void            setTextSize     (const int characterSize);
                 void            moveText        (const sf::Vector2f& offset);
+
+                void            centerOrigin    ();
+
+                void            dance          (const float dt);
 
     protected:
                 sf::Sprite&     _mSprite        ();
@@ -38,19 +41,10 @@ class Entity
     private:
         sf::Sprite              mSprite;
 
-        sf::Color               newColour      ();
-        void                    changeColour    (int& colour, bool& isAdding);
-
-
-
-        bool        isRedAdded;
-        bool        isGreenAdded;
-        bool        isBlueAdded;
-
-        double      danceCount;
-
         sf::Font mFont;
         sf::Text mText;
+
+        SpriteDancer dancer;
 };
 
 #endif // ENTITY_H

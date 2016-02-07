@@ -16,24 +16,24 @@ class Ship
     public:
         explicit        Ship(TextureManager& textures);
 
-        sf::Vector2f    getPosition () const;
+                void            update      (const float dt);
+                void            draw        (sf::RenderWindow& window);
 
-        void            update      (const float dt);
-        void            draw        (sf::RenderWindow& window);
+        const   sf::Texture&    getTexture  () const;
+                sf::Texture*    getTexture  (const RoomType roomType);
+                sf::Texture*    getTexture  (const UnitType unitType);
 
-        sf::Texture     getTexture  () const;
-        sf::Texture*    getTexture  (const RoomType roomType);
-        sf::Texture*    getTexture  (const UnitType unitType);
+                void            setRooms    (const std::vector<Room> rooms);
+                void            setUnits    (const std::vector<Unit> units);
 
-        void            setRooms    (const std::vector<Room> rooms);
-        void            setUnits    (const std::vector<Unit> units);
+                void            setTexture  (const sf::Texture& t);
 
-        void            setTexture  (const sf::Texture& t);
+                void            setPosition (const sf::Vector2f pos, const bool moving);
+        const   sf::Vector2f    getPosition () const;
+                void            translate   (const sf::Vector2f& offset, const float dt);
 
-        void            setPosition (const sf::Vector2f pos, const bool moving);
-
-        void            setName     (const std::string& name);
-        std::string&    getName     () const;
+                void            setName     (const std::string& name);
+        const   std::string&    getName     () const;
 
     private:
         void            registerRoomsToTextures (TextureManager& textures);

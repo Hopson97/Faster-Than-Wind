@@ -15,16 +15,17 @@ enum UnitType
 class Unit : public Entity
 {
     public:
-        Unit        (const sf::Texture& texture, const UnitType _type, const sf::Vector2f& pos, const sf::Vector2f& shipPos);
+                                Unit            (const sf::Texture&  texture,   const UnitType      _type,
+                                                 const sf::Vector2f& pos,       const sf::Vector2f& shipPos);
 
-        void            update          (const float dt);
-        void            setToShipPos     (const sf::Vector2f& shipPos);
+                void            update          (const float dt);
+                void            setToShipPos    (const sf::Vector2f& shipPos);
 
-    private:
-        void            setUpAnimation  ();
+    private: //Private methods
+                void            setUpAnimation  ();
 
-        std::string     typeToString    () const;
-        void            setLevels       ();
+        const   std::string     typeToString    () const;
+                void            setLevels       ();
 
 
      private://variables

@@ -1,4 +1,6 @@
+##################
 ### CodeBlocks ###
+##################
 *.cbp
 *.layout
 *.depend
@@ -6,14 +8,29 @@
 bin/
 obj/
 
-#end of Code::Blocks files
-
-# custom files
+####################
+### Custom Files ###
+####################
 game/
 Old Versions/
+
+Game.zip
 
 FTW.txt
 toaddaroom.txt
 updates and that.txt
+
+####################################################################
+### Lines Of Code Metrics (LOC Counter creates a bunch of files) ###
+####################################################################
+LocMetrics.css
+LocMetrics.html
+LocMetricsCommentWords.csv
+LocMetricsFiles.csv
+LocMetricsFunctions.csv
+LocMetricsFolders.csv
+LocMetricsFunctions.html
+LocMetricsPie.jpg
+LocMetricsPie.png
 
 

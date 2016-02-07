@@ -27,6 +27,8 @@ class Game
 
         inline void             setClearColour  (const sf::Color& c)    { mClearColour = c;}
 
+                sf::Music&       getMusic    () { return mMusic; }
+
     private:
         float                   deltaTime       (sf::Clock& clock);
 

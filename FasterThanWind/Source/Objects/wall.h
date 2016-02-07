@@ -15,19 +15,19 @@ enum WallType
 class Wall : public Entity
 {
     public:
-        Wall(   TextureManager& manager, const sf::Vector2f position, const int rotation,
-                const WallType type, const int id, const int otherId, const sf::Vector2f& shipPosition );
+                            Wall            (TextureManager& manager, const sf::Vector2f position, const int rotation,
+                                             const WallType type, const int id, const int otherId, const sf::Vector2f& shipPosition );
 
-        void        logic           (const float dt);
-        void        setOtherDoor    (Wall& _wall);
-        void        setToShipPos     (const sf::Vector2f& shipPosition);
-        WallType    getType         () const;
-        int         getId           () const;
-        int         getOtherId      () const;
+                void        logic           (const float dt);
+                void        setOtherDoor    (Wall& _wall);
+                void        setToShipPos     (const sf::Vector2f& shipPosition);
+        const   WallType    getType         () const;
+        const   int         getId           () const;
+        const   int         getOtherId      () const;
 
     private:
-        void            setTexture      (TextureManager& manager);
-        void            setUpAnimation  ();
+                void        setTexture      (TextureManager& manager);
+                void        setUpAnimation  ();
 
     private:
         WallType        mWallType;
@@ -37,12 +37,13 @@ class Wall : public Entity
         int             mId;
         int             mOtherDoorId;
 
-        int       WALL_WIDTH;
-        int       WALL_HEIGHT;
+        int             WALL_WIDTH;
+        int             WALL_HEIGHT;
 
-        int xPos, yPos;
+        int             xPos,
+                        yPos;
 
-        Animation doorOpen;
+        Animation       doorOpen;
 };
 
 #endif // WALL_H
