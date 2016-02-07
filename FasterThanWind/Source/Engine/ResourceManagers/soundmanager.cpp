@@ -8,7 +8,7 @@ SoundManager::SoundManager()
 
 void SoundManager::loadGlobalSounds()
 {
-   // test.loadFromFile("Resources/Sounds/click.ogg");
+   //loadSound(RES_SOUND_GBL_CLICK, "Resources/Sounds/click.ogg");
    // mSounds[RES_SOUND_GBL_CLICK] = test;
 
     //loadSound(RES_SOUND_GBL_CLICK, soundPath + "click.ogg");

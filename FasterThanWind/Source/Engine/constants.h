@@ -15,9 +15,10 @@ namespace col
     constexpr int WHITE         = 255;
     const sf::Color BLACK       (0, 0, 0, 255);
 
-    const sf::Color YELLOWY     ( 189, 187, 95          );
+    const sf::Color YELLOWY     ( 189, 187, 95,  255    );
     const sf::Color SELECTED    ( 150, 150, 150, 255    );
-    const sf::Color TEXT_COLOUR ( 255, 245, 188         );
+    const sf::Color TEXT_COLOUR ( 255, 245, 188, 255    );
+    const sf::Color WATER       ( 74, 141, 255,  255    );
 }
 
 namespace ship

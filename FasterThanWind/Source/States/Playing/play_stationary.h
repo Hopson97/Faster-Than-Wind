@@ -4,7 +4,7 @@
 #include "state.h"
 #include "game.h"
 
-#include "../Objects/Ship/ship.h"
+#include "../Objects/Ship Objects/Ship/ship.h"
 
 namespace state
 {

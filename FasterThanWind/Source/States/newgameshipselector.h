@@ -1,7 +1,7 @@
 #ifndef NEWGAMESHIPSELECTOR_H
 #define NEWGAMESHIPSELECTOR_H
 
-#include "../Objects/Ship/ship.h"
+#include "../Objects/Ship Objects/Ship/ship.h"
 #include "state.h"
 
 #include "game.h"
@@ -10,6 +10,7 @@
 
 #include "UI/button.h"
 
+#include "water.h"
 
 
 #include <string>
@@ -42,6 +43,7 @@ class NewGameShipSelector : public State
         ShipLoader                  mShipLoader;
 
         Entity                      shipYardLogo;
+        Entity                      stones;
 
         ui::Button                  mPrevShipButton;
         Entity                      mListButtonText;
@@ -61,6 +63,8 @@ class NewGameShipSelector : public State
         util::RangedNum<int>        mCurrentLayout;
 
         std::string                 shipString;
+
+        Water                       mWater;
 };
 
 }//Namespace state

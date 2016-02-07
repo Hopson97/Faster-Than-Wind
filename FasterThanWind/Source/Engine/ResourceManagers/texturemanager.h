@@ -22,6 +22,7 @@ enum TextureName
     ,   RES_TXR_NEWGAME_PREV_ARROW
     ,   RES_TXR_NEWGAME_NEXT_ARROW
     ,   RES_TXR_NEWGAME_LIST_ICON
+    ,   RES_TXR_NEWGAME_STONES
 
     ,   RES_TXR_SP_RM_EMPTY_SMALL           //Texture, for ship, of room type: empty small
     ,   RES_TXR_SP_RM_EMPTY_LARGE           //Texture, for ship, of room type: empty large

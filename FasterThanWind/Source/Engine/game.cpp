@@ -11,7 +11,8 @@
 #include "constants.h"
 
 Game::Game()
-: mWindow(sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close, sf::ContextSettings(8)) //Window Constructor
+:   mWindow(sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close, sf::ContextSettings(8)) //Window Constructor
+,   mSounds()
 {
     mWindow.setPosition(sf::Vector2i(-1700, 0) );
     mWindow.setFramerateLimit(win::FRAME_RATE_LIMIT);
@@ -54,7 +55,6 @@ void Game::runGame()
     sf::Clock c;                                    //Clock will be used to work out "delta time" aka time between frames
     changeSong("Resources/Music/undertale.ogg");
     mMusic.setVolume(100);
-    mMusic.setPlayingOffset( sf::seconds(76.0f) );
 
 
     while(mWindow.isOpen())

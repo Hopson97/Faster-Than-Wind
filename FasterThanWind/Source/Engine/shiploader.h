@@ -3,9 +3,9 @@
 
 #include <vector>
 
-#include "room.h"
-#include "Unit/unit.h"
-#include "../Objects/Ship/ship.h"
+#include "../Objects/Ship Objects/room.h"
+#include "../Objects/Ship Objects/Unit/unit.h"
+#include "../Objects/Ship Objects/Ship/ship.h"
 
 class ShipLoader
 {

@@ -24,10 +24,7 @@ MainMenu::MainMenu( Game* game )
 {
     mLogo.centerOrigin(sf::Vector2f( win::WIDTH  / 2,
                                      win::HEIGHT / 2 ) );
-
-    mLogo.        setToRandColour();
-
-    _mGame().setClearColour(col::YELLOWY);    //Colour value for a old paper look
+    mLogo.setToRandColour();
 
     blackFade.setSize({ (float) win::WIDTH,
                         (float) win::HEIGHT
@@ -59,6 +56,7 @@ void MainMenu::input(const float dt)
 ***************************************************************************************************************************************************************/
 void MainMenu::update(const float dt)
 {
+    _mGame().setClearColour(col::YELLOWY);    //Colour value for a old paper look
     mLogo.dance(dt);
     fadeIn();
 }

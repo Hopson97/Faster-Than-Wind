@@ -88,6 +88,7 @@ void TextureManager::loadTexturesNewGame()
     loadTexture( RES_TXR_NEWGAME_PREV_ARROW      ,   texturePath + "Menu Buttons/New Game/previous ship.png"    );
     loadTexture( RES_TXR_NEWGAME_NEXT_ARROW      ,   texturePath + "Menu Buttons/New Game/Next Ship.png"        );
     loadTexture( RES_TXR_NEWGAME_LIST_ICON       ,   texturePath + "Menu Buttons/New Game/Ship List Text.png"   );
+    loadTexture( RES_TXR_NEWGAME_STONES          ,   texturePath + "Backgrounds/Ship Selector Stones.png"   );
 }
 
 /*****************************************************************************************************************************************************************

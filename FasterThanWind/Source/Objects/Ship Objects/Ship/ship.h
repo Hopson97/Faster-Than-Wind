@@ -2,7 +2,7 @@
 #define SHIP_H
 
 
-#include "room.h"
+#include "../room.h"
 #include "../Unit/unit.h"
 #include "ResourceManagers/texturemanager.h"
 

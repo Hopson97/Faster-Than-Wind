@@ -13,13 +13,14 @@ namespace state {
 
 NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
 :   State                   ( game    )
-,   LIST_BUTTON_Y           ( 100     )
+,   LIST_BUTTON_Y           ( 90      )
 ,   mCurrentShipNumber      ( 0       )
 ,   mCurrentShip            ( manager )
-,   shipYardLogo            ( game->getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL                                              ) )
-,   mPrevShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_PREV_ARROW ), sf::Vector2f( 0,    LIST_BUTTON_Y      ) )
-,   mListButtonText         ( game->getTextures().getTexture( RES_TXR_NEWGAME_LIST_ICON                                            ) )
-,   mNextShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_NEXT_ARROW ), sf::Vector2f( 399,  LIST_BUTTON_Y      ) )
+,   shipYardLogo            ( game->getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL                                               ) )
+,   stones                  ( game->getTextures().getTexture( RES_TXR_NEWGAME_STONES                                                ) )
+,   mPrevShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_PREV_ARROW ), sf::Vector2f( 0,    LIST_BUTTON_Y       ) )
+,   mListButtonText         ( game->getTextures().getTexture( RES_TXR_NEWGAME_LIST_ICON                                             ) )
+,   mNextShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_NEXT_ARROW ), sf::Vector2f( 399,  LIST_BUTTON_Y       ) )
 ,   mLayout1Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 570,    LIST_BUTTON_Y      ), "Layout 1" )
 ,   mLayout2Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 380,    LIST_BUTTON_Y      ), "Layout 2" )
 ,   mLayout3Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 190,    LIST_BUTTON_Y      ), "Layout 3" )
@@ -27,6 +28,8 @@ NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
 ,   mBackToMainMenuButton   ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( 0, 0                                    ), "\t  Back to \n Main Menu" )
 ,   mCurrentLayout          ( 1, 3, 1) //Ranged num, 1 - 3, starting value = 1
 {
+    _mGame().setClearColour( col::WATER);
+
     shipYardLogo.setPos(sf::Vector2f(win::WIDTH / 2 - shipYardLogo.getSprite().getLocalBounds().width / 2,
                                            0));
     shipYardLogo.setUpText( "Ship Yard", shipYardLogo.getSprite().getPosition() );
@@ -96,8 +99,9 @@ void NewGameShipSelector::update (const float dt)
         mLayout3Button.setColour( col::SELECTED );
     }
 
+    mWater.update(dt);
 
-    if ( mCurrentShip.getPosition().x > win::WIDTH ) mCurrentShip.translate({-100000, 0.0f}, dt);
+    if ( mCurrentShip.getPosition().x > win::WIDTH ) mCurrentShip.setPosition({(float) -480, (float) mCurrentShip.getPosition().y}, true);
     else mCurrentShip.translate({100.0f, 0.0f}, dt);
 
 }
@@ -108,11 +112,12 @@ void NewGameShipSelector::update (const float dt)
 ***************************************************************************************************************************************************************/
 void NewGameShipSelector::draw (const float dt)
 {
-    for ( auto& entity : mEntities )
-    {
-        entity->draw    ( _mGame().window() );
+     mWater          .   draw        ( _mGame().window()     );
+
+    for ( auto& entity : mEntities ) {
+        entity      ->  draw        ( _mGame().window()     );
     }
-    mCurrentShip.draw   (  _mGame().window()    );
+    mCurrentShip    .   draw        ( _mGame().window()     );
 }
 
 /*****************************************************************************************************************************************************************
@@ -186,6 +191,7 @@ void NewGameShipSelector::addShipsToVector()
 ***************************************************************************************************************************************************************/
 void NewGameShipSelector::addEntitysToVector()
 {
+    mEntities.push_back( &stones          );
     mEntities.push_back( &shipYardLogo    );  //Add the ship yard logo to the entity list
 
     mEntities.push_back( &mPrevShipButton );  //Add the ship selection entities to the entity list
