@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "game.h"
-#include "rangednum.h"
+#include "level.h"
 
 /*****************************************************************************************************************************************************************
 *   main() is the start point of the program

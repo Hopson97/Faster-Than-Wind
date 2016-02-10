@@ -4,10 +4,11 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../Engine/Entity/entity.h"
 #include "state.h"
 #include "game.h"
+#include "constants.h"
 
-#include "entity.h"
 
 namespace state
 {
@@ -34,17 +35,11 @@ class SplashScreen : public State
             ,   SPSH_ST_OUT
         };
 
+        Entity                      logoSprite      { _mGame().getTextures().getTexture( RES_TXR_SPLASH_SCREEN_MH) };
 
-        sf::Texture                 logoTexture;
-        Entity                      logoSprite;
+        SplashState                 mSplashState    { SPSH_ST_INITIAL };
 
-
-        sf::RectangleShape          blackness;
-
-
-        SplashState                 mSplashState;
-
-        std::shared_ptr<sf::Music> windWakerSong;
+        sf::RectangleShape          blackness       { { (float) win::WIDTH, (float) win::HEIGHT } };
 };
 
 }//Namespace state

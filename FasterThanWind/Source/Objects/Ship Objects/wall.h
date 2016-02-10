@@ -1,7 +1,7 @@
 #ifndef WALL_H
 #define WALL_H
 
-#include "entity.h"
+#include "../../Engine/Entity/entity.h"
 #include "animation.h"
 
 #include <memory>

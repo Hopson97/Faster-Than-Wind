@@ -1,13 +1,15 @@
 #include "water.h"
 
-Water::Water()
+Water::Water(double xBegin, double xEnd, double yBegin, double yEnd)
 {
-    for( int i = -3; i < 9 ; i++ ) {
-        for ( int j = 1.7 ; j < 3.7 ; j++) {
-            waterShapes.emplace_back( WaterSqaure( {
-                                                        (float) i * 200,
-                                                        (float) j * 200
-                                                    } ) );
+    for ( double x = xBegin ; x < xEnd ; x++)
+    {
+        for ( double y = yBegin ; y < yEnd ; y++ )
+        {
+            waterShapes.emplace_back(WaterSqaure({
+                                                    (float) x * 200,
+                                                    (float) y * 200
+                                                }));
         }
     }
 }

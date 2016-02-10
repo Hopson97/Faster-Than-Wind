@@ -8,11 +8,7 @@
 #include "splashscreen.h"
 #include "mainmenu.h"
 
-#include "constants.h"
-
 Game::Game()
-:   mWindow(sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close, sf::ContextSettings(8)) //Window Constructor
-,   mSounds()
 {
     mWindow.setPosition(sf::Vector2i(-1700, 0) );
     mWindow.setFramerateLimit(win::FRAME_RATE_LIMIT);

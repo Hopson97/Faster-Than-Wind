@@ -18,7 +18,7 @@ class Water
             {
                 square.setPosition(pos);
                 square.setSize({200.0f, 200.0f});
-                square.setFillColor(sf::Color(0, 0, random::num(100, 255), random::num(150, 255) ) ) ;
+                square.setFillColor(sf::Color(random::num(0, 20), random::num(0, 20), random::num(100, 255), random::num(135, 255) ) ) ;
 
                 xPos = square.getPosition().x;
                 yPos = square.getPosition().y;
@@ -47,7 +47,7 @@ class Water
     };
 
     public:
-        Water();
+        Water(double xBegin, double xEnd, double yBegin, double yEnd);
         void update     (const float dt);
         void draw       (sf::RenderWindow& window);
 

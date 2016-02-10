@@ -5,11 +5,6 @@
 #include "ResourceManagers/texturemanager.h"
 #include "constants.h"
 
-ShipLoader::ShipLoader()
-{
-
-}
-
 /*****************************************************************************************************************************************************************
 *   loadShip()  the method to call that loads up a ship from the games Resources/Ship Data/ folder
 *   param1  :   a pointer to the ship that will be changed
@@ -29,7 +24,6 @@ void ShipLoader::loadShip(Ship* ship, const std::string& shipPath, TextureManage
 
     sf::Texture t;                  //Texture for the ship
     t.loadFromFile(texturePath);    //load it
-
 
     mShip->setTexture(t);
 
@@ -133,7 +127,7 @@ void ShipLoader::matchUpDoors()
         for ( auto& wall : room.getWalls() )
         {
             if( wall.getType() == WT_DOOR ) {
-                wallInfo.push_back(wall);
+                wallInfo.emplace_back(wall);
             }
         }
     }

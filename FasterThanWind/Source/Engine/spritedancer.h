@@ -3,10 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "random.h"
+
 class SpriteDancer
 {
     public:
-                        SpriteDancer    ();
         void            dance           (const float& dt, sf::Sprite& sprite);
 
 
@@ -18,11 +19,10 @@ class SpriteDancer
 
 
 
-        bool        isRedAdded;
-        bool        isGreenAdded;
-        bool        isBlueAdded;
-
-        double      danceCount;
+        bool        isRedAdded      { (bool)   random::num( 0, 1 )  };
+        bool        isGreenAdded    { (bool)   random::num( 0, 1 )  };
+        bool        isBlueAdded     { (bool)   random::num( 0, 1 )  };
+        double      danceCount      { (double) random::num(0, 5000) };
 
 };
 

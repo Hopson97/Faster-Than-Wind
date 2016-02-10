@@ -46,7 +46,7 @@ void Room::logic(const float dt)
 ***************************************************************************************************************************************************************/
 void Room::addWall(Wall wall)
 {
-    mWalls.push_back( wall );
+    mWalls.emplace_back( wall );
 }
 
 std::vector<Wall>& Room::getWalls()

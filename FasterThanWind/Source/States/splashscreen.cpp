@@ -1,7 +1,6 @@
 #include "splashscreen.h"
 
 #include <iostream>
-#include "constants.h"
 #include "mainmenu.h"
 
 namespace state
@@ -9,11 +8,8 @@ namespace state
 
 SplashScreen::SplashScreen( Game* game )
 :   State         ( game )
-,   logoSprite    ( game->getTextures().getTexture( RES_TXR_SPLASH_SCREEN_MH))
-,   mSplashState  ( SPSH_ST_INITIAL)
 {
     blackness   .setFillColor   ( col::BLACK  );
-    blackness   .setSize        ( sf::Vector2f  ( win::WIDTH, win::HEIGHT )   );
 
     logoSprite  .centerOrigin   ();
     logoSprite  .setPos({

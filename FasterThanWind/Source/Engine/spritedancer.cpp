@@ -2,16 +2,6 @@
 
 #include "random.h"
 
-SpriteDancer::SpriteDancer()
-: isRedAdded    ( random::num( 0, 1 )  )
-, isGreenAdded  ( random::num( 0, 1 )  )
-, isBlueAdded   ( random::num( 0, 1 )  )
-, danceCount    ( random::num(0, 5000) )
-{
-
-}
-
-
 /*****************************************************************************************************************************************************************
 *   newColour() based on certain variables, it sets the sprite to a different colour
 *   param1  :   the sprite that will be "dancing"

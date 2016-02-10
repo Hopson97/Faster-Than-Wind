@@ -3,9 +3,10 @@
 
 #include <string>
 
-#include "entity.h"
+#include "../../Engine/Entity/entity.h"
 #include "rangednum.h"
 #include "animation.h"
+#include "level.h"
 
 enum UnitType
 {
@@ -36,9 +37,8 @@ class Unit : public Entity
 
         Animation                   walkingAnim;
 
-        int                         MAX_LEVEL;
-        util::RangedNum<int>        speedLvl;
-        util::RangedNum<int>        repairLvl;
+        Level                       repairLvl   { 1 };
+        Level                       speedLvl    { 1 };
 };
 
 #endif // UNIT_H

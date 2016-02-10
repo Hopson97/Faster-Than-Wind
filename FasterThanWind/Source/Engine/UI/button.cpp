@@ -15,10 +15,9 @@ Button::Button(const sf::Texture& texture, const sf::Vector2f& pos)
     _mSprite().setPosition( pos );   //Set position
 }
 
-Button::Button(const sf::Texture& texture, const sf::Vector2f& pos, const std::string& buttonText)
-:    Entity(texture, buttonText, pos)
+Button::Button(const sf::Texture& texture, const sf::Vector2f& pos, const std::string& buttonText, const int textSize)
+:    Entity(texture, buttonText, pos, textSize)
 {
-    _mSprite().setPosition( pos );
 }
 
 /*****************************************************************************************************************************************************************

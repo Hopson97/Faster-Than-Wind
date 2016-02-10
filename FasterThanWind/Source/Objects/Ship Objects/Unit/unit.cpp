@@ -7,9 +7,6 @@ Unit::Unit(const sf::Texture& texture, const UnitType _type, const sf::Vector2f&
 ,   mUnitType   (_type)
 ,   mXPos       ( pos.x   )
 ,   mYPos       ( pos.y   )
-,   MAX_LEVEL   ( 10 )
-,   speedLvl    ( 1, MAX_LEVEL, 1)
-,   repairLvl   ( 1, MAX_LEVEL, 1)
 {
     _mSprite().setTextureRect(ship::UNIT_SIZE);
 

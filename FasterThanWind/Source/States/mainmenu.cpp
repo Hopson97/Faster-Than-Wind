@@ -9,18 +9,6 @@ namespace state {
 
 MainMenu::MainMenu( Game* game )
 :   State               ( game )
-,   mBackground         ( game->getTextures()     .getTexture( RES_TXR_MENU_BACKGROUND             )   )
-,   mLogo               ( game->getTextures()     .getTexture( RES_TXR_LOGO_FTW                    )   )
-,   mNewGameButton      ( game->getTextures()     .getTexture( RES_TXR_GBL_LONG_SCROLL   ),  sf::Vector2f( (win::WIDTH/2) -
-                                                                                                            game->getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL).getSize().x / 2,
-                                                                                                            50 - 45 ),
-                                                                                                            "New Game")
-
-,   mContinueButton     ( game->getTextures()     .getTexture( RES_TXR_GBL_LONG_SCROLL   ),  sf::Vector2f( (win::WIDTH/2) -
-                                                                                                            game->getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL).getSize().x / 2,
-                                                                                                            140 - 45 ),
-                                                                                                            "Continue Game")
-,   blackFading         ( true )
 {
     mLogo.centerOrigin(sf::Vector2f( win::WIDTH  / 2,
                                      win::HEIGHT / 2 ) );

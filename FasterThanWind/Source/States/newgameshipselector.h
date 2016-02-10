@@ -29,6 +29,7 @@ class NewGameShipSelector : public State
         void    draw                (const float dt) override;
 
     private:
+        void    setUpLabels         ();
         void    setUpButtons        ();
         void    addEntitysToVector  ();
         void    addShipsToVector    ();
@@ -36,35 +37,37 @@ class NewGameShipSelector : public State
         void    resetShip           ();
 
     private:
-        int                         LIST_BUTTON_Y;
-        int                         mCurrentShipNumber;
+        const float                 LIST_BUTTON_Y           { 90 };
+        int                         mCurrentShipNumber      { 1  };
 
         Ship                        mCurrentShip;
         ShipLoader                  mShipLoader;
 
-        Entity                      shipYardLogo;
-        Entity                      stones;
+        Entity                      shipYardLogo            { _mGame().getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL  ) };
+        Entity                      stones                  { _mGame().getTextures().getTexture( RES_TXR_NEWGAME_STONES   ) };
+        Entity                      mCurrShipLabel          { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL ) };
 
-        ui::Button                  mPrevShipButton;
-        Entity                      mListButtonText;
-        ui::Button                  mNextShipButton;
+        Entity                      mListButtonText         { _mGame().getTextures().getTexture( RES_TXR_NEWGAME_LIST_ICON  )  };
+        ui::Button                  mPrevShipButton         { _mGame().getTextures().getTexture( RES_TXR_NEWGAME_PREV_ARROW ), { 0.0f,   LIST_BUTTON_Y } };
+        ui::Button                  mNextShipButton         { _mGame().getTextures().getTexture( RES_TXR_NEWGAME_NEXT_ARROW ), { 399.0f, LIST_BUTTON_Y } };
 
-        ui::Button                  mLayout1Button;
-        ui::Button                  mLayout2Button;
-        ui::Button                  mLayout3Button;
+        ui::Button                  mLayout1Button          { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), { win::WIDTH - 570.0f, LIST_BUTTON_Y }, "Layout 1", txtSz::small };
+        ui::Button                  mLayout2Button          { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), { win::WIDTH - 380.0f, LIST_BUTTON_Y }, "Layout 2", txtSz::small };
+        ui::Button                  mLayout3Button          { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), { win::WIDTH - 190.0f, LIST_BUTTON_Y }, "Layout 3", txtSz::small };
 
-        ui::Button                  mConfirmSelectionButton;
+        ui::Button                  mConfirmSelectionButton { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), { win::WIDTH - 190.0f, win::HEIGHT - 100.0f  }, "Select Ship", txtSz::small };
 
-        ui::Button                  mBackToMainMenuButton;
+        ui::Button                  mBackToMainMenuButton   { _mGame().getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), { 0.0f, 0.0f }, "\t  Back to \n Main Menu", txtSz::small };
+
+        util::RangedNum<int>        mCurrentLayout          { 1,  3, 1 };
+
+        Water                       mWater                  { -1, 8, 0.5, 3 };
 
         std::vector<std::string>    mshipNameList;
         std::vector<Entity*>        mEntities;
 
-        util::RangedNum<int>        mCurrentLayout;
 
         std::string                 shipString;
-
-        Water                       mWater;
 };
 
 }//Namespace state

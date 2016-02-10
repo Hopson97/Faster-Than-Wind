@@ -13,11 +13,13 @@ void Unit::setLevels()
         while ( statGetter >> levelName ) {
             int lvl;
             statGetter >> lvl;
+            Level newLvl ( lvl  );
+
             if ( levelName == "SPEED" ) {
-                speedLvl.setValue( lvl );
+                speedLvl = newLvl;
             }
             else if ( levelName == "REPAIR" ) {
-                repairLvl.setValue( lvl );
+                repairLvl = newLvl;
             }
             else {
                 std::cout << "\"" << levelName << "\" not recognised (Inside \" " << filePath << "\") \n";

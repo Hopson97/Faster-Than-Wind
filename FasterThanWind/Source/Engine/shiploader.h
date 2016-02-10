@@ -10,7 +10,6 @@
 class ShipLoader
 {
     public:
-                ShipLoader  ();
         void    loadShip    (Ship* ship, const std::string& shipPath, TextureManager& textureManager);
 
     private:

@@ -30,5 +30,11 @@ namespace ship
     const sf::IntRect UNIT_SIZE    (0, 0, 38, 38 );
 }
 
+namespace txtSz
+{
+    constexpr int large = 60;
+    constexpr int small = 27;
+}
+
 
 #endif // CONSTANTS_H_INCLUDED

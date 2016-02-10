@@ -10,8 +10,8 @@ class Entity
 {
     public:
                 explicit        Entity          (const sf::Texture& t);
-                                Entity          (const sf::Texture& t, const std::string& text);
-                                Entity          (const sf::Texture& t, const std::string& text, const sf::Vector2f& pos);
+                                Entity          (const sf::Texture& t, const std::string& text, const int textSize);
+                                Entity          (const sf::Texture& t, const std::string& text, const sf::Vector2f& pos, const int textSize);
                                 Entity          ();
         virtual void            draw            (sf::RenderWindow& window);
 
@@ -26,9 +26,11 @@ class Entity
 
                 void            centerOrigin    (const sf::Vector2f& newPos);
 
-                void            setUpText       (const std::string& text, const sf::Vector2f& pos);
+                void            setUpText       (const std::string& text, const int textSize);
+                void            setText         (const std::string& text);
                 void            setTextSize     (const int characterSize);
-                void            moveText        (const sf::Vector2f& offset);
+                void            moveTextDown    (const int amount);
+
 
                 void            centerOrigin    ();
 
@@ -37,6 +39,7 @@ class Entity
     protected:
                 sf::Sprite&     _mSprite        ();
                 void            setTextureRect  (const sf::IntRect& rect);
+                void            centerText      ();
 
     private:
         sf::Sprite              mSprite;

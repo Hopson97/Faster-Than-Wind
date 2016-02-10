@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "constants.h"
+
 typedef std::shared_ptr<State> statePtr;
 
 class State;
@@ -33,7 +35,7 @@ class Game
         float                   deltaTime       (sf::Clock& clock);
 
     private:
-        sf::RenderWindow    mWindow;
+        sf::RenderWindow    mWindow     { sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close };
         TextureManager      mTextures;
         SoundManager        mSounds;
 

@@ -1,5 +1,5 @@
 #include "soundmanager.h"
-
+#include <memory>
 SoundManager::SoundManager()
 :   soundPath   ("Resources/Sounds/")
 {

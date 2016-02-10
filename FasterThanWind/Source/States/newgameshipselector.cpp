@@ -13,39 +13,20 @@ namespace state {
 
 NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
 :   State                   ( game    )
-,   LIST_BUTTON_Y           ( 90      )
-,   mCurrentShipNumber      ( 0       )
 ,   mCurrentShip            ( manager )
-,   shipYardLogo            ( game->getTextures().getTexture( RES_TXR_GBL_LONG_SCROLL                                               ) )
-,   stones                  ( game->getTextures().getTexture( RES_TXR_NEWGAME_STONES                                                ) )
-,   mPrevShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_PREV_ARROW ), sf::Vector2f( 0,    LIST_BUTTON_Y       ) )
-,   mListButtonText         ( game->getTextures().getTexture( RES_TXR_NEWGAME_LIST_ICON                                             ) )
-,   mNextShipButton         ( game->getTextures().getTexture( RES_TXR_NEWGAME_NEXT_ARROW ), sf::Vector2f( 399,  LIST_BUTTON_Y       ) )
-,   mLayout1Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 570,    LIST_BUTTON_Y      ), "Layout 1" )
-,   mLayout2Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 380,    LIST_BUTTON_Y      ), "Layout 2" )
-,   mLayout3Button          ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 190,    LIST_BUTTON_Y      ), "Layout 3" )
-,   mConfirmSelectionButton ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( win::WIDTH - 190,    win::HEIGHT - 100  ), "Select Ship")
-,   mBackToMainMenuButton   ( game->getTextures().getTexture( RES_TXR_GBL_SMALL_SCROLL   ), sf::Vector2f( 0, 0                                    ), "\t  Back to \n Main Menu" )
-,   mCurrentLayout          ( 1, 3, 1) //Ranged num, 1 - 3, starting value = 1
 {
     _mGame().setClearColour( col::WATER);
-
-    shipYardLogo.setPos(sf::Vector2f(win::WIDTH / 2 - shipYardLogo.getSprite().getLocalBounds().width / 2,
-                                           0));
-    shipYardLogo.setUpText( "Ship Yard", shipYardLogo.getSprite().getPosition() );
-
-    mListButtonText.setPos( sf::Vector2f( 97, LIST_BUTTON_Y ) );
-
     setUpButtons();
-    addEntitysToVector();
-    addShipsToVector();
+    setUpLabels();
 
+    addShipsToVector();
     shipString = mshipNameList[0];
 
+    mCurrShipLabel.setUpText( "\"" + shipString + "\"", txtSz::small);
 
-    mCurrentShip.setPosition(sf::Vector2f((win::WIDTH  / 2) - ship::WIDTH,
-                             (win::HEIGHT / 2) - 50),
-                             false);
+    addEntitysToVector();
+    changeCurrentShip(-1);
+
     resetShip();
 }
 
@@ -101,7 +82,7 @@ void NewGameShipSelector::update (const float dt)
 
     mWater.update(dt);
 
-    if ( mCurrentShip.getPosition().x > win::WIDTH ) mCurrentShip.setPosition({(float) -480, (float) mCurrentShip.getPosition().y}, true);
+    if ( mCurrentShip.getPosition().x > win::WIDTH ) mCurrentShip.setPosition({(float) -ship::WIDTH, (float) mCurrentShip.getPosition().y}, true);
     else mCurrentShip.translate({100.0f, 0.0f}, dt);
 
 }
@@ -112,12 +93,13 @@ void NewGameShipSelector::update (const float dt)
 ***************************************************************************************************************************************************************/
 void NewGameShipSelector::draw (const float dt)
 {
-     mWater          .   draw        ( _mGame().window()     );
+     mWater.draw( _mGame().window() );
 
     for ( auto& entity : mEntities ) {
-        entity      ->  draw        ( _mGame().window()     );
+        entity->draw( _mGame().window() );
     }
-    mCurrentShip    .   draw        ( _mGame().window()     );
+
+    mCurrentShip.draw( _mGame().window() );
 }
 
 /*****************************************************************************************************************************************************************
@@ -143,7 +125,8 @@ void NewGameShipSelector::changeCurrentShip(const int increment)
     }
 
     shipString = mshipNameList[mCurrentShipNumber]; //If all the error checks pass, then change the current ship and reset it
-    mCurrentLayout.setValue(1);
+    mCurrentLayout.setValue( 1 );
+    mCurrShipLabel.setText( "\"" + shipString + "\"" );
     resetShip();
 }
 
@@ -162,18 +145,22 @@ void NewGameShipSelector::resetShip()
 */
 void NewGameShipSelector::setUpButtons()
 {
-    const   int             LAYOUT_BTN_TEXT_SIZE = 30;
+    mBackToMainMenuButton.moveTextDown ( 20 );
+}
 
-    mLayout1Button.setTextSize  ( LAYOUT_BTN_TEXT_SIZE );
-    mLayout2Button.setTextSize  ( LAYOUT_BTN_TEXT_SIZE );
-    mLayout3Button.setTextSize  ( LAYOUT_BTN_TEXT_SIZE );
+void NewGameShipSelector::setUpLabels()
+{
+    shipYardLogo.setPos(sf::Vector2f(win::WIDTH / 2 - shipYardLogo.getSprite().getLocalBounds().width / 2, 0) );
+    shipYardLogo.setUpText( "Ship Yard", txtSz::large);
+    shipYardLogo.moveTextDown ( 12 );
 
-    mConfirmSelectionButton.setTextSize     ( LAYOUT_BTN_TEXT_SIZE );
-    mConfirmSelectionButton.moveText        ( sf::Vector2f(-10, 10 ) );
+    mListButtonText.setPos( sf::Vector2f( 97, LIST_BUTTON_Y ) );
 
-
-    mBackToMainMenuButton.setTextSize   ( 23 );
-    mBackToMainMenuButton.moveText      ( sf::Vector2f(-10, 35 ) );
+    mCurrShipLabel.setPos   (sf::Vector2f( win::WIDTH - 668 - mCurrShipLabel.getSprite().getLocalBounds().width / 2,
+                                           LIST_BUTTON_Y ) );
+    mCurrentShip.setPosition(sf::Vector2f((win::WIDTH  / 2) - ship::WIDTH,
+                             (win::HEIGHT / 2) - 50),
+                             false);
 }
 
 /*****************************************************************************************************************************************************************
@@ -182,8 +169,8 @@ void NewGameShipSelector::setUpButtons()
 */
 void NewGameShipSelector::addShipsToVector()
 {
-    mshipNameList.push_back( "StarterShip" );
-    mshipNameList.push_back( "Ship" );
+    mshipNameList.emplace_back( "StarterShip" );
+    mshipNameList.emplace_back( "Ship" );
 }
 
 /*****************************************************************************************************************************************************************
@@ -191,20 +178,21 @@ void NewGameShipSelector::addShipsToVector()
 ***************************************************************************************************************************************************************/
 void NewGameShipSelector::addEntitysToVector()
 {
-    mEntities.push_back( &stones          );
-    mEntities.push_back( &shipYardLogo    );  //Add the ship yard logo to the entity list
+    mEntities.emplace_back( &stones          );
+    mEntities.emplace_back( &shipYardLogo    );  //Add the ship yard logo to the entity list
+    mEntities.emplace_back( &mCurrShipLabel  );
 
-    mEntities.push_back( &mPrevShipButton );  //Add the ship selection entities to the entity list
-    mEntities.push_back( &mNextShipButton );
-    mEntities.push_back( &mListButtonText );
+    mEntities.emplace_back( &mPrevShipButton );  //Add the ship selection entities to the entity list
+    mEntities.emplace_back( &mNextShipButton );
+    mEntities.emplace_back( &mListButtonText );
 
-    mEntities.push_back( &mLayout1Button  );   //Add layout buttons to the entity list
-    mEntities.push_back( &mLayout2Button  );
-    mEntities.push_back( &mLayout3Button  );
+    mEntities.emplace_back( &mLayout1Button  );   //Add layout buttons to the entity list
+    mEntities.emplace_back( &mLayout2Button  );
+    mEntities.emplace_back( &mLayout3Button  );
 
-    mEntities.push_back( &mConfirmSelectionButton);
+    mEntities.emplace_back( &mConfirmSelectionButton);
 
-    mEntities.push_back( &mBackToMainMenuButton );
+    mEntities.emplace_back( &mBackToMainMenuButton );
 }
 
 
