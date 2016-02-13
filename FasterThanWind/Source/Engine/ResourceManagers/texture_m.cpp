@@ -1,4 +1,4 @@
-#include "texturemanager.h"
+#include "texture_m.h"
 
 #include <iostream>
 
@@ -11,7 +11,7 @@ TextureManager::TextureManager()
 *   addWall()   return a specific texture
 *   param1  :   The enum name of the texture
 **************************************************************************************************************************************************************/
-sf::Texture& TextureManager::getTexture(const TextureName textureName)
+const sf::Texture& TextureManager::getTexture(const TextureName textureName)
 {
     return mTextures[textureName];
 }

@@ -2,16 +2,16 @@
 
 #include "constants.h"
 
-Entity::Entity(const sf::Texture& t, const std::string& text, const sf::Vector2f& pos, const int textSize)
+Entity::Entity(const sf::Texture& t, const std::string& text, const sf::Vector2f& pos, const int textSize, const sf::Font& font)
 : mSprite(t)
 {
     mSprite.setPosition(pos);
-    setUpText(text, textSize);
+    setUpText(text, textSize, font);
 }
 
-Entity::Entity(const sf::Texture& t, const std::string& text, const int textSize)
+Entity::Entity(const sf::Texture& t, const std::string& text, const int textSize, const sf::Font& font)
 {
-    setUpText(text, textSize);
+    setUpText(text, textSize, font);
 }
 
 /*****************************************************************************************************************************************************************
@@ -19,12 +19,11 @@ Entity::Entity(const sf::Texture& t, const std::string& text, const int textSize
 *   param1  :   The text to be displayed on the button
 *   param2  :   The position of the text
 ***************************************************************************************************************************************************************/
-void Entity::setUpText(const std::string& text, const int textSize)
+void Entity::setUpText(const std::string& text, const int textSize, const sf::Font& font)
 {
-    mFont.loadFromFile    ( "Resources/Fonts/MTCORSVA.ttf"      );
     mText.setString       ( text                                );
-    mText.setFont         ( mFont                               );
-    mText.setCharacterSize( textSize                                  );
+    mText.setFont         ( font                                );
+    mText.setCharacterSize( textSize                            );
     mText.setColor        ( col::TEXT_COLOUR                    );
 
     centerText();

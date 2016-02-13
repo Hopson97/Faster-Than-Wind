@@ -9,15 +9,17 @@ namespace ui {
 *   param1 : takes in a texture for the button
 *   param2  : takes in a positional vector for the button
 ***************************************************************************************************************************************************************/
-Button::Button(const sf::Texture& texture, const sf::Vector2f& pos)
-:    Entity(texture)
+Button::Button(const sf::Texture& texture, const sf::Vector2f& pos, sf::Sound& clickSound)
+:   Entity( texture )
 {
     _mSprite().setPosition( pos );   //Set position
+    mClickSound = &clickSound;
 }
 
-Button::Button(const sf::Texture& texture, const sf::Vector2f& pos, const std::string& buttonText, const int textSize)
-:    Entity(texture, buttonText, pos, textSize)
+Button::Button(const sf::Texture& texture, const sf::Vector2f& pos, const std::string& buttonText, const int textSize, const sf::Font& font, sf::Sound& clickSound)
+:   Entity(texture, buttonText, pos, textSize, font)
 {
+    mClickSound = &clickSound;
 }
 
 /*****************************************************************************************************************************************************************
@@ -29,19 +31,23 @@ bool Button::clicked(sf::RenderWindow& window)
     window.draw( _mSprite() );
     if ( touchingMouse( window ) && sf::Mouse::isButtonPressed( sf::Mouse::Left ) )   // If clicked
     {
-
-        _mSprite().setColor( sf::Color( 200, 200, 200, 255 ) );                        //Change colour
-        return true;                                                            //Return true;
+        if( !beenClicked ) {        //Conditional exists for the sake of the sound only plays once
+            mClickSound->play();
+            beenClicked = true;
+        }
+        _mSprite().setColor( sf::Color( 200, 200, 200, 255 ) );     //Change colour
+        return true;
     }
-    else if (touchingMouse( window) )                                 //If mouse rolled over
+    else if (touchingMouse( window) )                               //If mouse rolled over
     {
-        _mSprite().setColor( sf::Color( 220, 220, 220, 255 ) );            //Change colour
-        return false;                                               //But as not clicked, return false
+        _mSprite().setColor( sf::Color( 220, 220, 220, 255 ) );     //Change colour
+        return false;
     }
-    else                                                            //If no events
+    else
     {
-        _mSprite().setColor( sf::Color( 255, 255, 255, 255 ) );            //Go to default colour
-        return false;                                               //Return false
+        _mSprite().setColor( sf::Color( 255, 255, 255, 255 ) );     //Go to default colour
+        beenClicked = false;
+        return false;
     }
 }
 

@@ -12,7 +12,9 @@ namespace win
 
 namespace col
 {
-    constexpr int WHITE         = 255;
+    constexpr int MAX_COLOUR    = 255;
+    constexpr int MIN_COLOUR    = 0;
+
     const sf::Color BLACK       (0, 0, 0, 255);
 
     const sf::Color YELLOWY     ( 189, 187, 95,  255    );

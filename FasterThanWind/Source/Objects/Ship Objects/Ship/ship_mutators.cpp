@@ -12,7 +12,7 @@ const sf::Texture& Ship::getTexture() const
 *   getTexture()    returns a texture for the rooms
 *   param1  :   the RoomType texture that it will be returning
 ***************************************************************************************************************************************************************/
-sf::Texture* Ship::getTexture(const RoomType roomType)
+const sf::Texture* Ship::getTexture(const RoomType roomType)
 {
     return roomTextures[ roomType ];
 }
@@ -21,7 +21,7 @@ sf::Texture* Ship::getTexture(const RoomType roomType)
 *   getTexture()    returns a texture for the unit
 *   param1  :   the UniType's texture that it will be returning
 ***************************************************************************************************************************************************************/
-sf::Texture* Ship::getTexture(const UnitType unitType)
+const sf::Texture* Ship::getTexture(const UnitType unitType)
 {
     return unitTextures[ unitType ];
 }
@@ -42,6 +42,11 @@ void Ship::setRooms(const std::vector<Room> rooms)
 void Ship::setUnits(const std::vector<Unit> units)
 {
     mUnits = units;
+}
+
+const std::vector<Unit> Ship::getUnits() const
+{
+    return mUnits;
 }
 
 /*****************************************************************************************************************************************************************
@@ -99,4 +104,9 @@ void Ship::setName(const std::string& name)
 const std::string& Ship::getName() const
 {
     return shipName;
+}
+
+const int Ship::getWidth() const
+{
+    return mShipSprite.getLocalBounds().width;
 }

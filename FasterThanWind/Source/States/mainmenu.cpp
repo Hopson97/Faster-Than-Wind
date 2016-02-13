@@ -18,8 +18,6 @@ MainMenu::MainMenu( Game* game )
                         (float) win::HEIGHT
                       });
     blackFade.setFillColor(col::BLACK);
-
-    //click.setBuffer( _mGame().getSounds().getSound(RES_SOUND_GBL_CLICK) );
 }
 
 /***************************************************************************************************************************************************************
@@ -29,12 +27,10 @@ MainMenu::MainMenu( Game* game )
 void MainMenu::input(const float dt)
 {
     if ( mNewGameButton.clicked( _mGame().window() ) ) {
-        _mGame().getStates(true).pushState( std::make_shared<state::NewGameShipSelector>( &_mGame(), _mGame().getTextures() ) );
-        //click.play();
+        _mGame().getStates(true).pushState( std::make_shared<state::NewGameShipSelector>( &_mGame(), _mGame().getTexture_m() ) );
     }
     if ( mContinueButton.clicked( _mGame().window() ) ) {
-        //continue
-        //click.play();
+        //continue game
     }
 }
 

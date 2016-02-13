@@ -1,6 +1,7 @@
 #include "spritedancer.h"
 
 #include "random.h"
+#include "constants.h"
 
 /*****************************************************************************************************************************************************************
 *   newColour() based on certain variables, it sets the sprite to a different colour
@@ -28,9 +29,9 @@ void SpriteDancer::changeColour(int& colour, bool& isAdding)
 {
     if( isAdding ) {
         colour++;
-        if( colour >= 255 ) {
+        if( colour >= col::MAX_COLOUR ) {
             isAdding = false;
-            colour = 254;
+            colour = col::MAX_COLOUR - 1;
         }
     } else {
         colour--;

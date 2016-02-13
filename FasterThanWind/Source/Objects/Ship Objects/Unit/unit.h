@@ -22,12 +22,13 @@ class Unit : public Entity
                 void            update          (const float dt);
                 void            setToShipPos    (const sf::Vector2f& shipPos);
 
+        const   UnitType        getType         () const;
+
     private: //Private methods
                 void            setUpAnimation  ();
 
         const   std::string     typeToString    () const;
                 void            setLevels       ();
-
 
      private://variables
         UnitType                    mUnitType;

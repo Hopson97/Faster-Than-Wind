@@ -19,13 +19,17 @@ NewGameShipSelector::NewGameShipSelector(Game* game,  TextureManager& manager)
     setUpButtons();
     setUpLabels();
 
+    mCurrentShip.setPosition(sf::Vector2f((win::WIDTH  / 2) - ship::WIDTH,
+                             (win::HEIGHT / 2) - 150),
+                             false);
+
     addShipsToVector();
     shipString = mshipNameList[0];
 
-    mCurrShipLabel.setUpText( "\"" + shipString + "\"", txtSz::small);
+    mCurrShipLabel.setUpText( "\"" + shipString + "\"", txtSz::small, _mGame().getFont( RES_FONT_FANCY ));
 
     addEntitysToVector();
-    changeCurrentShip(-1);
+    changeCurrentShip(-1);  //Disgusting fix to a unknown cause of a glitch
 
     resetShip();
 }
@@ -82,7 +86,13 @@ void NewGameShipSelector::update (const float dt)
 
     mWater.update(dt);
 
-    if ( mCurrentShip.getPosition().x > win::WIDTH ) mCurrentShip.setPosition({(float) -ship::WIDTH, (float) mCurrentShip.getPosition().y}, true);
+    if ( mCurrentShip.getPosition().x > win::WIDTH ) {
+            mCurrentShip.setPosition
+                                    ({(float) -mCurrentShip.getWidth(),
+                                     (float) mCurrentShip.getPosition().y},
+                                      true);
+
+    }
     else mCurrentShip.translate({100.0f, 0.0f}, dt);
 
 }
@@ -98,7 +108,9 @@ void NewGameShipSelector::draw (const float dt)
     for ( auto& entity : mEntities ) {
         entity->draw( _mGame().window() );
     }
-
+    for ( auto& unitShower : mUnitShowers ) {
+        unitShower.draw( _mGame().window() );
+    }
     mCurrentShip.draw( _mGame().window() );
 }
 
@@ -136,7 +148,14 @@ void NewGameShipSelector::changeCurrentShip(const int increment)
 */
 void NewGameShipSelector::resetShip()
 {
-    mShipLoader.loadShip( &mCurrentShip, "Resources/Ship Info/" + shipString + util::toString(mCurrentLayout.getValue()) + ".ship", _mGame().getTextures() );
+    mShipLoader.loadShip( &mCurrentShip, "Resources/Ship Info/" + shipString + util::toString(mCurrentLayout.getValue()) + ".ship", _mGame().getTexture_m() );
+
+    mUnitShowers.clear();
+    int xPos = 0;
+    for( auto& unit : mCurrentShip.getUnits() ) {
+        mUnitShowers.emplace_back( UnitShower ( *mCurrentShip.getTexture(unit.getType()), {float(xPos), float(600) } )  );
+        xPos += 45;
+    }
 }
 
 /*****************************************************************************************************************************************************************
@@ -151,16 +170,13 @@ void NewGameShipSelector::setUpButtons()
 void NewGameShipSelector::setUpLabels()
 {
     shipYardLogo.setPos(sf::Vector2f(win::WIDTH / 2 - shipYardLogo.getSprite().getLocalBounds().width / 2, 0) );
-    shipYardLogo.setUpText( "Ship Yard", txtSz::large);
+    shipYardLogo.setUpText( "Ship Yard", txtSz::large, _mGame().getFont( RES_FONT_FANCY ));
     shipYardLogo.moveTextDown ( 12 );
 
     mListButtonText.setPos( sf::Vector2f( 97, LIST_BUTTON_Y ) );
 
     mCurrShipLabel.setPos   (sf::Vector2f( win::WIDTH - 668 - mCurrShipLabel.getSprite().getLocalBounds().width / 2,
                                            LIST_BUTTON_Y ) );
-    mCurrentShip.setPosition(sf::Vector2f((win::WIDTH  / 2) - ship::WIDTH,
-                             (win::HEIGHT / 2) - 50),
-                             false);
 }
 
 /*****************************************************************************************************************************************************************

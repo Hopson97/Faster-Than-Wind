@@ -35,6 +35,11 @@ void Unit::setToShipPos(const sf::Vector2f& shipPos)
                                  (mYPos * ship::TILE_SIZE)  + shipPos.y );
 }
 
+const UnitType Unit::getType() const
+{
+    return mUnitType;
+}
+
 /*****************************************************************************************************************************************************************
 *   setUpAnimation() adds all needed frames to allow the unit to look alive
 ***************************************************************************************************************************************************************/

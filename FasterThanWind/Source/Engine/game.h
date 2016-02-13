@@ -1,8 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "ResourceManagers/texturemanager.h"
-#include "ResourceManagers/soundmanager.h"
+#include "ResourceManagers/texture_m.h"
+#include "ResourceManagers/sound_m.h"
+#include "ResourceManagers/font_m.h"
 #include "statehandler.h"
 
 #include <string>
@@ -15,29 +16,38 @@ class State;
 class Game
 {
     public:
-                                Game            ();
-        void                    runGame         ();
-        void                    windowEvents    ();
+                                        Game            ();
+                void                    runGame         ();
+                void                    windowEvents    ();
 
-        void                    changeSong      (const std::string& filePath);
+                void                    changeSong      (const std::string& filePath);
 
-        TextureManager&         getTextures     ();        //"Get" resource manager
-        SoundManager&           getSounds       ();
-        sf::RenderWindow&       window          ();
 
-        StateHandler&           getStates       (const bool clearResources);
+        const   sf::Texture&            getTexture      ( const TextureName name );
+                TextureManager&         getTexture_m    ( );
 
-        inline void             setClearColour  (const sf::Color& c)    { mClearColour = c;}
+                sf::Sound&              getSound        ( const SoundName name);
 
-                sf::Music&       getMusic    () { return mMusic; }
+        const   sf::Font&               getFont         ( const FontName name);
+
+
+                sf::RenderWindow&       window          ();
+
+                StateHandler&           getStates       (const bool clearResources);
+
+        inline void                     setClearColour  (const sf::Color& c)    { mClearColour = c;}
+
+                sf::Music&              getMusic        () { return mMusic; }
 
     private:
-        float                   deltaTime       (sf::Clock& clock);
+                float                   deltaTime       (sf::Clock& clock);
 
     private:
         sf::RenderWindow    mWindow     { sf::VideoMode(win::WIDTH, win::HEIGHT), "Faster Than Wind", sf::Style::Close };
+
         TextureManager      mTextures;
         SoundManager        mSounds;
+        FontManager         mFonts;
 
         StateHandler        mStates;
 

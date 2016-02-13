@@ -3,15 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "ResourceManagers/texturemanager.h"
+#include "ResourceManagers/texture_m.h"
 #include "spritedancer.h"
 
 class Entity
 {
     public:
                 explicit        Entity          (const sf::Texture& t);
-                                Entity          (const sf::Texture& t, const std::string& text, const int textSize);
-                                Entity          (const sf::Texture& t, const std::string& text, const sf::Vector2f& pos, const int textSize);
+                                Entity          (const sf::Texture& t, const std::string& text, const int textSize, const sf::Font& font);
+                                Entity          (const sf::Texture& t, const std::string& text, const sf::Vector2f& pos, const int textSize, const sf::Font& font);
                                 Entity          ();
         virtual void            draw            (sf::RenderWindow& window);
 
@@ -26,7 +26,7 @@ class Entity
 
                 void            centerOrigin    (const sf::Vector2f& newPos);
 
-                void            setUpText       (const std::string& text, const int textSize);
+                void            setUpText       (const std::string& text, const int textSize, const sf::Font& font);
                 void            setText         (const std::string& text);
                 void            setTextSize     (const int characterSize);
                 void            moveTextDown    (const int amount);
@@ -43,11 +43,9 @@ class Entity
 
     private:
         sf::Sprite              mSprite;
+        sf::Text                mText;
 
-        sf::Font mFont;
-        sf::Text mText;
-
-        SpriteDancer dancer;
+        SpriteDancer            dancer;
 };
 
 #endif // ENTITY_H

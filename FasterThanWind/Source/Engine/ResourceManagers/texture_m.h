@@ -1,5 +1,5 @@
-#ifndef TEXTUREMANAGER_H
-#define TEXTUREMANAGER_H
+#ifndef Texture_H
+#define Texture_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -7,6 +7,8 @@
 #include <memory>
 #include <string>
 #include <map>
+
+
 
 enum TextureName
 {
@@ -53,7 +55,7 @@ class TextureManager
         void                    loadTexturesRooms   ();
         void                    loadTexturesUnits   ();
 
-        sf::Texture&            getTexture          (const TextureName textureName);
+        const sf::Texture&            getTexture          (const TextureName textureName);
 
     private:
         void                    loadTexture         (const TextureName& name, const std::string& filePath);
@@ -62,4 +64,6 @@ class TextureManager
         std::string texturePath;
 };
 
-#endif // TEXTUREMANAGER_H
+
+
+#endif // Texture_H

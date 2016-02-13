@@ -35,7 +35,7 @@ class SplashScreen : public State
             ,   SPSH_ST_OUT
         };
 
-        Entity                      logoSprite      { _mGame().getTextures().getTexture( RES_TXR_SPLASH_SCREEN_MH) };
+        Entity                      logoSprite      { _mGame().getTexture( RES_TXR_SPLASH_SCREEN_MH) };
 
         SplashState                 mSplashState    { SPSH_ST_INITIAL };
 

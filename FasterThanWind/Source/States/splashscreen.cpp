@@ -86,7 +86,7 @@ void SplashScreen::ssOut()
     int opacity = blackness.getFillColor().a;
     blackness.setFillColor( sf::Color(0, 0, 0, ++opacity  ) );
 
-    if ( opacity >= col::WHITE ) {
+    if ( opacity >= col::MAX_COLOUR ) {
         _mGame().getStates(true).changeState( std::make_shared<state::MainMenu>(  &_mGame() ) );
     }
 }
