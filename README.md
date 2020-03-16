@@ -1,4 +1,7 @@
 # Faster Than Wind 
+
+More up to date: https://github.com/Hopson97/Ancient-Projects/tree/master/c%2B%2B/faster-than-wind
+
 ### An experimental Faster Than Light Clone I am making for fun
 
 I started working on this around the 15th December 2015.
