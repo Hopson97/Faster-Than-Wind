@@ -25,7 +25,7 @@ It only will take in the .png file format, you just need to tell the filename of
 
 ###Using the ship Editor
 
-Using the ship editor is very simple. Infact, the controls are told to you when you load up or create a new ship. 
+Using the ship editor is very simple. In fact, the controls are told to you when you load up or create a new ship. 
 
 ![alt tag](http://puu.sh/mKAbl/e976eb63df.png "The ship editor controls,")
 
@@ -54,13 +54,13 @@ Press 's' to save your ship!
 
 ###Challenges I faced creating the editor
 
-Making the ship editor was rather fustrating at times (thanks c++)
+Making the ship editor was rather frustrating at times (thanks c++)
 
 #### Doors
 
 There were several problems with doors
 
-The way I made the editor was so that rooms were 38x38 px and walls were 1x40 (so there were 2 walls betweem rooms). 
+The way I made the editor was so that rooms were 38x38 px and walls were 1x40 (so there were 2 walls between rooms). 
 
 This means that creating a door would actually be changing the state of two walls to be doors, one for each room.
 
@@ -89,9 +89,9 @@ void Ship::removeRoom(const sf::RectangleShape& rect)
 
 Probably not the best way of doing it, but it works (instantly).
 
-The first 2 lines inside of the method just check if which rooms are being selected. (This allows removal of multiple rooms "similtaniously")
+The first 2 lines inside of the method just check if which rooms are being selected. (This allows removal of multiple rooms "simultaneously")
 Then it cycles through every wall of that room. If the type of the wall is a door, then it sets its neighbouring door to be a wall, and resets its ID. 
-Then it just erases that room from existance.
+Then it just erases that room from existence.
 
 Hang on a minute? ID? Other Walls? 
 
@@ -164,3 +164,4 @@ It has a has main menu, a ship selection screen with some music playing in the b
 ![alt tag](http://puu.sh/nVAOM/a120e9c70f.jpg "Ship Selector,")
 
 Video: https://vid.me/jMhx
+
